@@ -1,0 +1,13 @@
+#Wed Sep 16 18:06:55 CST 2015
+eclipse.preferences.version=1
+encoding//WebRoot/detail.jsp=UTF-8
+encoding//WebRoot/login.jsp=UTF-8
+encoding//WebRoot/news.jsp=UTF-8
+encoding//WebRoot/static/css/index.css=UTF-8
+encoding//WebRoot/static/js=UTF-8
+encoding//src/com/inews/entity=gbk
+encoding//src/com/inews/impl=gbk
+encoding//src/com/inews/jdbcdao=gbk
+encoding//src/com/inews/servlet/NodeSearchServlet.java=UTF-8
+encoding//src/com/inews/utils=gbk
+encoding/<project>=UTF-8

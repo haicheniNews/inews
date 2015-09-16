@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<servlet>
+		<description>用户注销</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>UserRegisterServlet</servlet-name>
+		<servlet-class>com.inews.servlet.UserRegisterServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LogoutServlet</servlet-name>
+		<servlet-class>com.inews.servlet.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NodeSearchServlet</servlet-name>
+		<servlet-class>com.inews.servlet.NodeSearchServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>后台访问页面是判断是否有权限访问</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>UserRightJudgeServlet</servlet-name>
+		<servlet-class>com.inews.servlet.UserRightJudgeServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<description>鹏哥更新</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>SubmitServlet</servlet-name>
+		<servlet-class>com.inews.servlet.SubmitServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SubmitServlet</servlet-name>
+		<url-pattern>/SubmitServlet</url-pattern>
+	</servlet-mapping>
+
+
+
+	<servlet-mapping>
+		<servlet-name>NodeSearchServlet</servlet-name>
+		<url-pattern>/NodeSearchServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserRegisterServlet</servlet-name>
+		<url-pattern>/UserRegisterServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LogoutServlet</servlet-name>
+		<url-pattern>/LogoutServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserRightJudgeServlet</servlet-name>
+		<url-pattern>/UserRightJudgeServlet</url-pattern>
+	</servlet-mapping>
+	
+	  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.inews.servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+
+
+
+	<filter>
+		<filter-name>NodeFilter</filter-name>
+		<filter-class>com.inews.filter.NodeFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>NodeFilter</filter-name>
+		<url-pattern>/admin/left.jsp</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>CharsetEncode</filter-name>
+		<filter-class>com.inews.filter.CharsetEncodeFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+
+	</filter>
+	<filter-mapping>
+		<filter-name>CharsetEncode</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<description>用户登录之后判断用户能否访问后台admin</description>
+		<filter-name>UserFilter</filter-name>
+		<filter-class>com.inews.filter.UserFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UserFilter</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
+
+
+
+
+
+
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
