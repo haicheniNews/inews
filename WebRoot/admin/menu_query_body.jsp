@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page import="com.inews.utils.StringUtils" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
@@ -78,10 +79,40 @@ for(i=0;i<cs.length;i++){
 
 </head>
 
+
+<%
+/*
+		int start;
+	int end;
+	String s=request.getParameter("start");
+	String e=request.getParameter("end");
+	if(StringUtils.isNull(s)){
+		s="0";
+	}
+	start=Integer.parseInt(s);
+	
+	if(StringUtils.isNull(e)){
+		e="5";	
+		end=Integer.parseInt(e);
+	}else{
+		end=5;
+	}
+	System.out.println(start+":"+end);
+	request.setAttribute("start",start);
+	request.setAttribute("end",end);
+*/
+%>
+
 <body>
 	<div class="up" style="margin:50px 0px 50px 0px;">
 		<form action="<%=basePath %>MenuQueryServlet" method="post">
-			父菜单名:<input name="father_id" type="text" value=""/>
+			菜单级别:
+					<select name="menu_level">
+							<option value="-1" selected="selected">--请选择--</option>
+							<option value="0" <c:if test="${sessionScope.menu_level==0 }">selected="selected"</c:if> >0级母菜单</option>
+							<option value="1" <c:if test="${sessionScope.menu_level==1 }">selected="selected"</c:if> >1级菜单</option>
+							<option value="2" <c:if test="${sessionScope.menu_level==2 }">selected="selected"</c:if> >2级菜单</option>
+					</select>
 			菜单名:<input name="menu_name" type="text" value=""/>
 			<input type="submit" value="查询"/>
 		</form>
@@ -150,11 +181,13 @@ for(i=0;i<cs.length;i++){
 		            <td width="12%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单名</span></div></td>
 		            <td width="14%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单值</span></div></td>
 		            <td width="18%" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单等级</span></div></td>
-		            <td width="23%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">父菜单名</span></div></td>
+		            <td width="23%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">父菜单名称</span></div></td>
 		            <td width="15%" height="22" background="images/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">基本操作</div></td>
 		          </tr>
 		          
-		          <c:forEach items="${menu_list}" var="menu_map">
+		          
+		          
+		          <c:forEach items="${menu_list}" var="menu_map" end="${sessionScope.end}">
 			           <tr>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center">
 			              <input type="checkbox" name="checkbox2" value="checkbox" />
@@ -162,8 +195,8 @@ for(i=0;i<cs.length;i++){
 			            <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE1"><div align="center">${menu_map.menuid  }</div></div></td>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menuname }</span></div></td>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menuvalue } </span></div></td>
-			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menufatherid }</span></div></td>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menulevel }</span></div></td>
+			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.fathername }</span></div></td>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" />编辑&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" />删除</span></div></td>
 			          </tr>
 		          </c:forEach>
@@ -180,17 +213,17 @@ for(i=0;i<cs.length;i++){
 		        <td width="12" height="35"><img src="images/tab_18.gif" width="12" height="35" /></td>
 		        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
 		          <tr>
-		            <td class="STYLE4">&nbsp;&nbsp;共有 120 条记录，当前第 1/10 页</td>
+		            <td class="STYLE4">&nbsp;&nbsp;总记录: &nbsp;&nbsp;${max_record }条</td>
 		            <td><table border="0" align="right" cellpadding="0" cellspacing="0">
 		                <tr>
-		                  <td width="40"><a href="#"><img src="images/first.gif" width="37" height="15" /></a></td>
-		                  <td width="45"><a href="#"><img src="images/back.gif" width="43" height="15" /></a></td>
-		                  <td width="45"><a href="#"><img src="images/next.gif" width="43" height="15" /></a></td>
-		                  <td width="40"><a href="#"><img src="images/last.gif" width="37" height="15" /></a></td>
+		                  <td width="40"><a href="<%=basePath%>MenuQueryServlet?start=1&end=${end}"><img src="images/first.gif" width="37" height="15" /></a></td>
+		                  <td width="45"><a href="<%=basePath%>MenuQueryServlet?start=${start-end}&end=${end}"><img src="images/back.gif" width="43" height="15" /></a></td>
+		                  <td width="45"><a href="<%=basePath%>MenuQueryServlet?start=${start+end}&end=${end}"><img src="images/next.gif" width="43" height="15" /></a></td>
+		                  <td width="40"><a href="<%=basePath%>MenuQueryServlet?start=${max_record-end}&end=${end}"><img src="images/last.gif" width="37" height="15" /></a></td>
 		                  <td width="100"><div align="center"><span class="STYLE1">转到第
-		                    <input name="textfield" type="text" size="4" style="height:12px; width:20px; border:1px solid #999999;" /> 
+		                    <input name="textfield" id="jump" onchange="changePath()" type="text" size="4" style="height:16px; width:20px; border:1px solid #999999;" value="${sessionScope.textFiled }"/> 
 		                    页 </span></div></td>
-		                  <td width="40"><a href="#"><img src="images/go.gif" width="37" height="15" /></a></td>
+		                  <td width="40"><a id="jumpto" href="<%=basePath%>MenuQueryServlet?end=${end}&start="><img src="images/go.gif" width="37" height="15" /></a></td>
 		                </tr>
 		            </table></td>
 		          </tr>
@@ -202,4 +235,23 @@ for(i=0;i<cs.length;i++){
 		</table>
 	</div>
 </body>
+
+<script type="text/javascript">
+	function changePath(){
+		var da=document.getElementById("jumpto");
+		var value=document.getElementById("jump").value;
+		var backup=value;
+		if(value<=0){
+			value=value*10+1;
+		}else{
+			value=(value-1)*10+1;
+		}
+		da.href=da.href+""+value+"&textfield="+backup;
+		
+		alert(da.href);
+	}
+	
+	
+</script>
+
 </html>

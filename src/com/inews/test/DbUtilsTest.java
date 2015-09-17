@@ -25,7 +25,7 @@ public class DbUtilsTest {
 	public void dbUtilsTest() {
 		Connection conn = DbUtils.getConnection();
 		Assert.assertNotNull(conn);
-		log.info("Á¬½Ó²âÊÔÍê³É..");
+		log.info("ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..");
 	}
 
 	@Test
@@ -48,7 +48,7 @@ public class DbUtilsTest {
 	}
 
 	/**
-	 * µ¥±í²éÑ¯
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯
 	 */
 	@Test
 	public void queryTest() {
@@ -69,13 +69,13 @@ public class DbUtilsTest {
 		System.out.println("count:" + count);
 
 		System.out
-				.println("========================·Ö¸îÏß:ÁíÍâÒ»ÖÖ±éÀú·½Ê½======================");
+				.println("========================ï¿½Ö¸ï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Ö±ï¿½ï¿½ï¿½Ê½======================");
 
 		count = 0;
 		int length = data.size();
 		for (int i = 0; i < length; i++) {
 			Map<String, Object> map = data.get(i);
-			System.out.println("ÎÒµÄuserid:"+map.get("userid"));
+			System.out.println("ï¿½Òµï¿½userid:"+map.get("userid"));
 			Set<String> keys = map.keySet();
 			Iterator<String> it = keys.iterator();
 			while (it.hasNext()) {
@@ -124,10 +124,31 @@ public class DbUtilsTest {
 		System.out.println("userid:"+ data.get("userid"));
 		
 	}
+	
+	@Test
+	public void sqlLimitTest(){
+		String sql="SELECT * FROM menu a ,(SELECT menuname fathername,menuid fatherid FROM menu) c WHERE a.menufatherid=c.fatherid LIMIT ?,?; ";
+		ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) dc.query(sql, 5,-1);
+		int size=data.size();
+		System.out.println(size);
+		printData(data);
+	}
 
 	private Object getObj() {
 		Object a=new Object();
 		return a;
+	}
+	
+	public void printData(ArrayList<Map<String, Object>> data){
+		for (Map<String, Object> map : data) {
+			Set<String> set = map.keySet();
+			Iterator<String> it = set.iterator();
+			while (it.hasNext()) {
+				String name = (String) it.next();
+				System.out.print(name + " : " + map.get(name) + " ;");
+			}
+			System.out.println();
+		}
 	}
 
 }

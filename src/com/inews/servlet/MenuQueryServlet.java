@@ -61,29 +61,57 @@ public class MenuQueryServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		response.setContentType("text/html;charset=utf-8");
-//		request.setCharacterEncoding("GBK");
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String menu_name=request.getParameter("menu_name");
-		String father_id=request.getParameter("father_id");
+		String menu_level=request.getParameter("menu_level");
+		String textfield=request.getParameter("textfield");
+		System.out.println(textfield);
+		int start;
+		int end;
+		String s=request.getParameter("start");
+		String e=request.getParameter("end");
+		if(StringUtils.isNull(s)){
+			s="1";
+		}
+		start=Integer.parseInt(s);
+		
+		if(StringUtils.isNull(e)){
+			e="10";	
+			end=Integer.parseInt(e);
+		}else{
+			end=10;
+		}
+		
+		if(start<0||end<0){
+			response.sendRedirect("admin/menu_query_body.jsp");
+			return;
+		}
 		
 		DbCRUD db=new DbCRUD();
 		StringBuffer sql=new StringBuffer("select * from menu where 1=1 ");
-		log.info(menu_name+" : "+father_id);
-		log.info(menu_name.length()+" : "+father_id.length());
 		
+		if(StringUtils.isNull(menu_level)){
+			menu_level=(Integer)request.getSession().getAttribute("menu_level")+"";
+		}
 		if(!StringUtils.isNull(menu_name)){
-			sql.append("and menuname='"+StringUtils.deleteSpace(menu_name)+"'");
+			sql.append("and menuname like '%"+StringUtils.deleteSpace(menu_name)+"%'");
 		}
-		if(!StringUtils.isNull(father_id)){
-			sql.append(" and menufatherid="+Integer.parseInt(StringUtils.deleteSpace(father_id)));
+		if(!StringUtils.isNull(menu_level)&&!menu_level.equals("-1")){
+			sql.append(" and menulevel = '"+Integer.parseInt(StringUtils.deleteSpace(menu_level))+"'");
 		}
+		
+		sql.append(" limit ?,?");
 		
 		log.info("菜单查询sql:"+sql.toString());
-		List<Map<String,Object>> list=(ArrayList<Map<String, Object>>) db.query(sql.toString(),null);
+		List<Map<String,Object>> list=(ArrayList<Map<String, Object>>) db.query(sql.toString(),start,end);
+		
 		request.getSession().setAttribute("menu_list", list);
-		response.sendRedirect("admin/menu_query_body.jsp");
+		request.getSession().setAttribute("start",start);
+		request.getSession().setAttribute("end",end);
+		request.getSession().setAttribute("menu_level", Integer.parseInt(menu_level));
+		request.getSession().setAttribute("textFiled", textfield);
+		request.getRequestDispatcher("admin/menu_query_body.jsp").forward(request, response);
 	}
 
 	/**
