@@ -59,9 +59,20 @@
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>com.inews.servlet.LoginServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>菜单查询</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>MenuQueryServlet</servlet-name>
+    <servlet-class>com.inews.servlet.MenuQueryServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MenuQueryServlet</servlet-name>
+    <url-pattern>/MenuQueryServlet</url-pattern>
   </servlet-mapping>
 
 

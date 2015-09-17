@@ -13,7 +13,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.inews.utils.DbCRUD;
+import com.inews.utils.Log;
 
 /**
  * 用户权限过滤
@@ -22,7 +25,7 @@ import com.inews.utils.DbCRUD;
  *
  */
 public class UserFilter implements Filter {
-
+	private Logger log=Log.getLogInstance(UserFilter.class);
 	public void destroy() {
 		// TODO Auto-generated method stub
 
@@ -46,7 +49,8 @@ public class UserFilter implements Filter {
 			((HttpServletResponse)response).sendRedirect("../index.jsp");
 		}else{
 			//后台管理用户
-			System.out.println("后台管理用户放行.");
+			//System.out.println("后台管理用户放行.");
+			log.info("后台管理员用户..");
 		}
 		chain.doFilter(request, response);
 		

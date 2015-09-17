@@ -8,6 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 新闻提交
+ * @author weipeng
+ *
+ */
 public class SubmitServlet extends HttpServlet {
 
 	/**

@@ -56,7 +56,6 @@ public class DbCRUD implements CRUD {
 				for(int i=1;i<=length;i++){
 					String name=rsmd.getColumnName(i);//获取列名
 					Object o=rs.getObject(name);
-//					System.out.println("name:"+"object:"+o);
 					map.put(name,o);
 				}
 				data.add(map);
@@ -88,7 +87,7 @@ public class DbCRUD implements CRUD {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(pstmt.toString());
+		log.info(pstmt.toString());
 		return pstmt;
 	}
 	
