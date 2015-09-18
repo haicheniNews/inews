@@ -72,7 +72,7 @@ public class MenuQueryServlet extends HttpServlet {
 		String s=request.getParameter("start");
 		String e=request.getParameter("end");
 		if(StringUtils.isNull(s)){
-			s="1";
+			s="0";
 		}
 		start=Integer.parseInt(s);
 		
@@ -89,7 +89,7 @@ public class MenuQueryServlet extends HttpServlet {
 		}
 		
 		DbCRUD db=new DbCRUD();
-		StringBuffer sql=new StringBuffer("select * from menu where 1=1 ");
+		StringBuffer sql=new StringBuffer("select * from menu a,(SELECT menuname fathername,menuid fatherid FROM menu) c where a.menufatherid=c.fatherid ");
 		
 		if(StringUtils.isNull(menu_level)){
 			menu_level=(Integer)request.getSession().getAttribute("menu_level")+"";
@@ -101,7 +101,7 @@ public class MenuQueryServlet extends HttpServlet {
 			sql.append(" and menulevel = '"+Integer.parseInt(StringUtils.deleteSpace(menu_level))+"'");
 		}
 		
-		sql.append(" limit ?,?");
+		sql.append(" ORDER BY menuid limit ?,?");
 		
 		log.info("菜单查询sql:"+sql.toString());
 		List<Map<String,Object>> list=(ArrayList<Map<String, Object>>) db.query(sql.toString(),start,end);
@@ -109,6 +109,7 @@ public class MenuQueryServlet extends HttpServlet {
 		request.getSession().setAttribute("menu_list", list);
 		request.getSession().setAttribute("start",start);
 		request.getSession().setAttribute("end",end);
+		request.getSession().setAttribute("menu_name", menu_name);
 		request.getSession().setAttribute("menu_level", Integer.parseInt(menu_level));
 		request.getSession().setAttribute("textFiled", textfield);
 		request.getRequestDispatcher("admin/menu_query_body.jsp").forward(request, response);
