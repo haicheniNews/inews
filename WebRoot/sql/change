@@ -1,0 +1,5 @@
+因为innodb数据库引擎的自增长最大值是存在内存中的. 这样导致删除后数据插入时id不一致
+
+SHOW TABLE STATUS FROM db_news WHERE NAME='menu'; 
+
+ALTER TABLE menu ENGINE=MYISAM; 

@@ -113,7 +113,7 @@ for(i=0;i<cs.length;i++){
 							<option value="1" <c:if test="${sessionScope.menu_level==1 }">selected="selected"</c:if> >1级菜单</option>
 							<option value="2" <c:if test="${sessionScope.menu_level==2 }">selected="selected"</c:if> >2级菜单</option>
 					</select>
-			菜单名:<input name="menu_name" type="text" value=""/>
+			菜单名:<input name="menu_name" type="text" value="${menu_name }"/>
 			<input type="submit" value="查询"/>
 		</form>
 	</div>
@@ -145,7 +145,7 @@ for(i=0;i<cs.length;i++){
 		                <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
 		                  <tr>
 		                    <td class="STYLE1"><div align="center"><img src="images/22.gif" width="14" height="14" /></div></td>
-		                    <td class="STYLE1"><div align="center"><a href="add_menu.jsp">新增</a></div></td>
+		                    <td class="STYLE1"><div align="center"><a href="<%=basePath %>admin/add_menu.jsp">新增</a></div></td>
 		                  </tr>
 		                </table></td>
 		                <%--<td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
@@ -177,7 +177,7 @@ for(i=0;i<cs.length;i++){
 		            <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center">
 		              <input type="checkbox" name="checkbox" value="checkbox" />
 		            </div></td>
-		            <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单编号</span></div></td>
+		         <!--    <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单编号</span></div></td> -->
 		            <td width="12%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单名</span></div></td>
 		            <td width="14%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单值</span></div></td>
 		            <td width="18%" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单等级</span></div></td>
@@ -192,12 +192,12 @@ for(i=0;i<cs.length;i++){
 			            <td height="20" bgcolor="#FFFFFF"><div align="center">
 			              <input type="checkbox" name="checkbox2" value="checkbox" />
 			            </div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE1"><div align="center">${menu_map.menuid  }</div></div></td>
+			      <!--       <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE1"><div align="center">${menu_map.menuid  }</div></div></td> -->
 			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menuname }</span></div></td>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menuvalue } </span></div></td>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menulevel }</span></div></td>
 			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.fathername }</span></div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" />编辑&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" />删除</span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" />编辑&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" /><a href="<%=basePath %>DeleteMenuById?menu_id=${menu_map.menuid }" onclick="return deleteRecord(${menu_map.menulevel  })" id="delete">删除</a></span></div></td>
 			          </tr>
 		          </c:forEach>
 		
@@ -213,15 +213,15 @@ for(i=0;i<cs.length;i++){
 		        <td width="12" height="35"><img src="images/tab_18.gif" width="12" height="35" /></td>
 		        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
 		          <tr>
-		            <td class="STYLE4">&nbsp;&nbsp;总记录: &nbsp;&nbsp;${max_record }条</td>
+		            <td class="STYLE4">&nbsp;&nbsp; &nbsp;&nbsp;</td>
 		            <td><table border="0" align="right" cellpadding="0" cellspacing="0">
 		                <tr>
-		                  <td width="40"><a href="<%=basePath%>MenuQueryServlet?start=1&end=${end}"><img src="images/first.gif" width="37" height="15" /></a></td>
+		                  <td width="40"><a href="<%=basePath%>MenuQueryServlet?start=0&end=${end}"><img src="images/first.gif" width="37" height="15" /></a></td>
 		                  <td width="45"><a href="<%=basePath%>MenuQueryServlet?start=${start-end}&end=${end}"><img src="images/back.gif" width="43" height="15" /></a></td>
 		                  <td width="45"><a href="<%=basePath%>MenuQueryServlet?start=${start+end}&end=${end}"><img src="images/next.gif" width="43" height="15" /></a></td>
 		                  <td width="40"><a href="<%=basePath%>MenuQueryServlet?start=${max_record-end}&end=${end}"><img src="images/last.gif" width="37" height="15" /></a></td>
 		                  <td width="100"><div align="center"><span class="STYLE1">转到第
-		                    <input name="textfield" id="jump" onchange="changePath()" type="text" size="4" style="height:16px; width:20px; border:1px solid #999999;" value="${sessionScope.textFiled }"/> 
+		                    <input name="textfield" id="jump" onkeyup="changePath()" type="text" size="4" style="height:16px; width:20px; border:1px solid #999999;" value="${sessionScope.textFiled }"/> 
 		                    页 </span></div></td>
 		                  <td width="40"><a id="jumpto" href="<%=basePath%>MenuQueryServlet?end=${end}&start="><img src="images/go.gif" width="37" height="15" /></a></td>
 		                </tr>
@@ -248,7 +248,16 @@ for(i=0;i<cs.length;i++){
 		}
 		da.href=da.href+""+value+"&textfield="+backup;
 		
-		alert(da.href);
+		//alert(da.href);
+	}
+
+	function deleteRecord(level_id){
+		//alert(level_id);
+		if(confirm("确认删除?")){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	

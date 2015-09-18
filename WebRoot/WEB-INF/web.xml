@@ -65,6 +65,13 @@
     <servlet-name>MenuQueryServlet</servlet-name>
     <servlet-class>com.inews.servlet.MenuQueryServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>根据菜单id删除菜单</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeleteMenuById</servlet-name>
+    <servlet-class>com.inews.servlet.DeleteMenuById</servlet-class>
+  </servlet>
+
 
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
@@ -73,6 +80,10 @@
   <servlet-mapping>
     <servlet-name>MenuQueryServlet</servlet-name>
     <url-pattern>/MenuQueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteMenuById</servlet-name>
+    <url-pattern>/DeleteMenuById</url-pattern>
   </servlet-mapping>
 
 

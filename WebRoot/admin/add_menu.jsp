@@ -25,19 +25,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			text-align: right;
 		}
 	</style>
+	
+	<script type="text/javascript" src="../js/ajax.js"></script>
 
   </head>
   
   <body>
   		<p>菜单管理:</p>
     	<div class="container">
-    		<div><input class="left_label" type="text" value="菜单名称:"/>		<input type="text" name="menu_name" /></div>
-    		<div><input class="left_label" type="text" value="菜单等级选择:"/>	<select name="level_id"><option>0</option><option>1</option><option>2</option></select>	</div>
-    		<div><input class="left_label" type="text" value="父菜单名称:"/>   <select name="father_level_id"><option>系统管理</option><option>新闻系统管理</option></select></div>
-    		<div><input class="left_label" type="text" value="菜单地址:"/>		<input type="text" name="menu_value" /></div>
-    		<div><input style="float:right;" type="submit" value="确认"/><input style="float:right;" type="button" value="取消"/></div>
+    		<div><input class="left_label" type="text" value="菜单名称:" disabled="disabled"/>		<input type="text" name="menu_name" /></div>
+    		<div><input class="left_label" type="text" value="菜单等级选择:" disabled="disabled"/>	<select id="menu_level" name="level_id"><option>0</option><option>1</option><option>2</option></select>	</div>
+    		<div><input class="left_label" type="text" value="父菜单名称:" disabled="disabled"/>   <select name="father_level_id"><option>系统管理</option><option>新闻系统管理</option></select></div>
+    		<div><input class="left_label" type="text" value="菜单地址:" disabled="disabled"/>		<input type="text" name="menu_value" /></div>
+    		<div style="margin-top:5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="确认"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消"/></div>
     		<div></div>
     	</div>
     
   </body>
+  
+  <script type="text/javascript">
+  	var xhr=createXHR();
+  	xhr.open("POST","AddMenuServlet",true);
+	xhr.setRequestHeader("content-type","application/x-www-form-urlencoded; charset=UTF-8");
+	xhr.onreadystatechange=update;
+	xhr.send("userId="+value+"&userSearch=1");
+  </script>
 </html>
