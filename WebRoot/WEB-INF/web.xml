@@ -71,6 +71,13 @@
     <servlet-name>DeleteMenuById</servlet-name>
     <servlet-class>com.inews.servlet.DeleteMenuById</servlet-class>
   </servlet>
+  <servlet>
+    <description>增加菜单时查询父菜单</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddMenuServlet</servlet-name>
+    <servlet-class>com.inews.servlet.AddMenuServlet</servlet-class>
+  </servlet>
+
 
 
   <servlet-mapping>
@@ -84,6 +91,10 @@
   <servlet-mapping>
     <servlet-name>DeleteMenuById</servlet-name>
     <url-pattern>/DeleteMenuById</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddMenuServlet</servlet-name>
+    <url-pattern>/AddMenuServlet</url-pattern>
   </servlet-mapping>
 
 
