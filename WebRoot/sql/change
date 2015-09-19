@@ -3,3 +3,8 @@
 SHOW TABLE STATUS FROM db_news WHERE NAME='menu'; 
 
 ALTER TABLE menu ENGINE=MYISAM; 
+
+get方法提交的表单很多乱码问题
+
+
+

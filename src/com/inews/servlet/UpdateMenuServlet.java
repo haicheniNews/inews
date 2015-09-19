@@ -8,14 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.inews.utils.DbCRUD;
-import com.inews.utils.StringUtils;
 
-public class AddMenuServlet extends HttpServlet {
+public class UpdateMenuServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public AddMenuServlet() {
+	public UpdateMenuServlet() {
 		super();
 	}
 
@@ -39,7 +38,8 @@ public class AddMenuServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			this.doPost(request, response);
+
+		this.doPost(request, response);
 	}
 
 	/**
@@ -54,38 +54,27 @@ public class AddMenuServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
+
+		String id=request.getParameter("menu_id");
 		String menuName=request.getParameter("menu_name");
-//System.out.println("menuName1:="+menuName);
-		String fatherMenuLevel=request.getParameter("father_menu_level");
-		String menuLevel=request.getParameter("menu_level");
 		String menuValue=request.getParameter("menu_value");
 		
-//System.out.println("menuName:"+new String(menuName.getBytes(),"utf-8"));
-		
-		String sql="INSERT INTO menu VALUES(NULL,?,?,?,?);";
+		StringBuffer sql=new StringBuffer("UPDATE menu SET  ");
+		if(menuName!=null){
+			sql.append(" menuname='"+menuName+"',");
+		}
+		if(menuValue!=null){
+			sql.append(" menuvalue='"+menuValue+"'");
+		}
+		sql.append(" WHERE menuid="+Integer.parseInt(id)+";");
 		DbCRUD dc=new DbCRUD();
+		int result=(Integer)dc.update(sql.toString(), null);
 		
-		if(StringUtils.isNull(menuLevel)||StringUtils.isNull(menuValue)||StringUtils.isNull(menuName)){
-			request.getSession().setAttribute("adminError", "系统错误");
-			response.sendRedirect("error.jsp");
-		}
-		int result=0;
-		if(null==fatherMenuLevel){
-			fatherMenuLevel="-1";
-			sql="INSERT INTO menu VALUES(NULL,?,NULL,?,?);";
-			result=(Integer)dc.insert(sql, menuName,Integer.parseInt(fatherMenuLevel),Integer.parseInt(menuLevel));
-		}else{
-			result=(Integer)dc.insert(sql, menuName,menuValue,Integer.parseInt(fatherMenuLevel),Integer.parseInt(menuLevel));
-			
-		}
-		dc.releaseConn();
 		if(result==1){
-			request.getSession().setAttribute("addMenuSuc", "增加成功");
-			response.sendRedirect("admin/add_menu.jsp");
+			request.getSession().setAttribute("updateMenuSuc", "更新成功");
+			response.sendRedirect("admin/update_menu.jsp?menuId="+Integer.parseInt(id));
+			//request.getRequestDispatcher("admin/update_menu.jsp").forward(request, response);
 		}
-		
 		
 	}
 
