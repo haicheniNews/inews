@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.inews.utils.DbCRUD;
 
+/**
+ * 根据id删除menu
+ * @author chenzhijun
+ *
+ */
 public class DeleteMenuById extends HttpServlet {
 
 	/**

@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.inews.utils.DbCRUD;
 
+/**
+ * 登录servlet
+ * @author chenzhijun
+ *
+ */
 public class LoginServlet extends HttpServlet {
 
 	/**

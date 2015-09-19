@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.inews.utils.DbCRUD;
 
+/**
+ * 更新菜单的值:主要是菜单名,和菜单值
+ * @author chenzhijun
+ *
+ */
 public class UpdateMenuServlet extends HttpServlet {
 
 	/**

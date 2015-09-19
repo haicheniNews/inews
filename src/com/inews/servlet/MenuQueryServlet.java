@@ -16,6 +16,11 @@ import com.inews.utils.DbCRUD;
 import com.inews.utils.Log;
 import com.inews.utils.StringUtils;
 
+/**
+ * 分页查询servlet
+ * @author chenzhijun
+ *
+ */
 public class MenuQueryServlet extends HttpServlet {
 
 	private Logger log=Log.getLogInstance(MenuQueryServlet.class);

@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.inews.utils.DbCRUD;
 import com.inews.utils.StringUtils;
 
+/**
+ * 菜单新增页面
+ * @author chenzhijun
+ *
+ */
 public class AddMenuServlet extends HttpServlet {
 
 	/**
