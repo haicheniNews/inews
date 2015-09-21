@@ -95,6 +95,13 @@
     <servlet-name>RoleQueryServlet</servlet-name>
     <servlet-class>com.inews.servlet.RoleQueryServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>增加角色</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddRoleServlet</servlet-name>
+    <servlet-class>com.inews.servlet.AddRoleServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -128,6 +135,10 @@
   <servlet-mapping>
     <servlet-name>RoleQueryServlet</servlet-name>
     <url-pattern>/RoleQueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddRoleServlet</servlet-name>
+    <url-pattern>/AddRoleServlet</url-pattern>
   </servlet-mapping>
 
 
@@ -173,6 +184,10 @@
 	<filter-mapping>
 		<filter-name>MenuManageFilter</filter-name>
 		<url-pattern>/admin/menu_query_body.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>MenuManageFilter</filter-name>
+		<url-pattern>/admin/role_update.jsp</url-pattern>
 	</filter-mapping>
 	
 	<filter>

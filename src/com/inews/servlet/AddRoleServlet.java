@@ -1,11 +1,6 @@
 package com.inews.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,17 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.inews.utils.DbCRUD;
-/**
- * 用户注册servlet,提供用户注册的功能
- * @author chenzhijun
- *
- */
-public class UserRegisterServlet extends HttpServlet {
+
+public class AddRoleServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public UserRegisterServlet() {
+	public AddRoleServlet() {
 		super();
 	}
 
@@ -47,6 +38,7 @@ public class UserRegisterServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		this.doPost(request, response);
 	}
 
@@ -62,42 +54,13 @@ public class UserRegisterServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			response.setCharacterEncoding("utf-8");
-			PrintWriter out=response.getWriter();
-			String userId=request.getParameter("userId");
-			String userSearch=request.getParameter("userSearch");
-			DbCRUD db=new DbCRUD();
-			String isRegister=request.getParameter("isRegister");
-			if(userSearch!=null&&userSearch.equals("1")){
-				String sql="select * from id_card where userid=?";
-				ArrayList<Map<String, Object>> result=(ArrayList<Map<String, Object>>) db.query(sql, userId);
-				
-				if(result.size()<=0){
-					out.write("1");
-				}else{
-					out.write("0");
-				}
-				out.close();
-				return;
-			}
-			if(isRegister.equals("1")&&isRegister!=null){
-				String password=request.getParameter("pwd");
-				String email=request.getParameter("email");
-				String sql="insert into id_card(userid,password) values(?,?)";
-				int result=(Integer) db.update(sql, userId,password);
-				sql="insert into user_info set userid=?,useremail=?";
-				db.update(sql, userId,email);
-				result++;
-				sql="insert into role_user values (7,?)";
-				db.insert(sql, userId);
-				result++;
-				db.releaseConn();
-				System.out.println("ok");
-				request.getSession().setAttribute("userId", userId);
-				response.sendRedirect("index.jsp");
-			}
 
-			
+		String roleName=request.getParameter("role_name");
+		DbCRUD dc=new DbCRUD();
+		String sql="insert into role values(null,?)";
+		dc.insert(sql, roleName);
+		dc.releaseConn();
+		response.sendRedirect("admin/role_right_manage.jsp");
 	}
 
 	/**

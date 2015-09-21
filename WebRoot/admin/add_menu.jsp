@@ -16,15 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	
-	<style type="text/css">
-		.left_label{
-			border:0px;
-			margin:0px;
-			padding:0px;
-			text-align: right;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="./css/add.css">
 	<script type="text/javascript" src="<%=basePath%>js/ajax.js"></script>
   </head>
   
