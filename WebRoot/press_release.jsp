@@ -2,7 +2,7 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-request.setCharacterEncoding("UTF-8");
+request.setCharacterEncoding("gbk");
 String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -36,15 +36,30 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 			});
 			prettyPrint();
 		});
-	</script>
+		function validate(e){
+			var va = document.getElementById("form1");
+			if(!va["title"].value || !va["content1"].value){
+				alert("您还没有输入值！");
+				return false;
+			}else{
+				if(va["content1"].value.length<12){
+					alert("编辑内容不少于12个字！");
+					return false;
+				}else{
+					return true;				
+				}
 
+			}
+			
+		}
+	</script>
 
 	<title>主页</title>
 </head>
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
 <body>
 	<div class="header">
-		<div class="img1">
+		<div class="img1"> 
 			<img src="static/images/logo.jpg" alt="logo">
 		</div>
 		<div class="button">
@@ -62,7 +77,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 	<div class="nav">
 		<div class="title fl">
 			<ul>
-				<li><a href="#">首页</a></li>
+				<li><a href="index.jsp">首页</a></li>
 				<li><a href="#">热点</a></li>
 				<li><a href="#">军事</a></li>
 				<li><a href="#">娱乐</a></li>
@@ -78,19 +93,32 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 	</div>
 	
 	<%=htmlData%>
-	<form name="example" method="post" action="demo.jsp">
-		<div id="comment" style="width:1000px;height:200px;margin-left:0px;margin-top:20px;margin-bottom:20px;">
-		<textarea name="content1" cols="100" rows="8" style="width:966px;height:300px;visibility:hidden;"><%=htmlspecialchars(htmlData)%></textarea>
-		<br />
+	<form method="post"  action="SubmitServlet" onsubmit="return validate(event)">
+		<br/>请输入标题：
+		<input name="title" type="text" style="width:300px;height:30px;"/>
+						&nbsp;&nbsp;&nbsp;&nbsp;请选择类别（只能选择一个）：				
+		<input type="radio" value="热点" name="checkbox" />热点
+		<input type="radio" value="军事"  name="checkbox" />军事   
+		<input type="radio" value="娱乐"  name="checkbox"/>娱乐
+		<input type="radio" value="经济"  name="checkbox" />经济
+		<input type="radio" value="汽车"  name="checkbox"/>汽车			
+					<br/>
+		<div id="comment" style="width:966px;height:200px;margin-left:0px;margin-top:20px;margin-bottom:20px;">
+		<textarea id="content1" name="content1" cols="100" rows="8" style="width:966px;height:300px;visibility:hidden;"><%=htmlspecialchars(htmlData)%></textarea>
+		<input type="hidden" name="userid" value="<%=request.getSession().getAttribute("userId") %>">
 		<input type="submit" name="button" value="提交内容" /> (提交快捷键: Ctrl + Enter)
 		</div>
 	</form>
-	
-	
-	
-
-	
-	
+<br/>
+    <form action="UploadHandleServlet" enctype="multipart/form-data" method="post"> 
+    	<div style="margin-top:150px;margin-left:100px;width:500px;height:300px" align="right">
+        	上传用户：<input type="text" name="username"><br/>
+        	上传图片：<input type="file" name="file1"><br/>
+        	上传flash：<input type="file" name="file2"><br/>
+        	<input type="submit" value="提交">
+        </div>
+    </form>
+	<img src="/images/index.jpg"/>
 	
 	<div class="footer" style="margin-top:200px;" >
 				 <div id="site_nav">
