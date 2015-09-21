@@ -15,7 +15,7 @@ import com.inews.utils.DbCRUD;
 
 /**
  * 登录servlet
- * @author chenzhijun
+ * @author lihanchun
  *
  */
 public class LoginServlet extends HttpServlet {
