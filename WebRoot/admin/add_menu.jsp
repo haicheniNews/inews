@@ -25,17 +25,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			text-align: right;
 		}
 	</style>
-	
 	<script type="text/javascript" src="<%=basePath%>js/ajax.js"></script>
-
   </head>
   
   <body>
   		<p>菜单管理:</p>
+  		<form action="AddMenuServlet" method="post">
     	<div class="container">
     		<div><input class="left_label" type="text" value="菜单名称:" disabled="disabled"/>		<input type="text" name="menu_name" /></div>
     		<div><input class="left_label" type="text" value="菜单等级选择:" disabled="disabled"/>	
-    			<select id="menu_level" name="level_id" onchange="get_father_menu_level()">
+    			<select id="menu_level" name="menu_level" onchange="get_father_menu_level()">
     				<option value="0">0</option>
     				<option value="1">1</option>
     				<option value="2">2</option>
@@ -45,14 +44,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<select name="father_menu_level" id="father_menu_level">
     			</select>
     		 </div>
-    		<div><input class="left_label" type="text" value="菜单地址:" disabled="disabled"/>		<input type="text" name="menu_value" /></div>
-    		<div style="margin-top:5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="确认"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消"/></div>
-    		<div></div>
+    		<div><input class="left_label" type="text" value="菜单地址:" disabled="disabled"/>		<input type="text" id="menu_value" name="menu_value" disabled="disabled" /></div>
+    		<div style="margin-top:5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="确认"/>&nbsp;&nbsp;&nbsp;&nbsp;
+    				<input type="button" value="取消" onClick="location.href='<%=basePath %>admin/menu_query_body.jsp'"/></div>
+    		<div id="result" ><input class="left_label" type="text" value="${addMenuSuc}" disabled="disabled" style="color:#FF0000;"/></div>
     	</div>
+    	</form>
     
   </body>
   
   <script type="text/javascript">
+	window.onload=function(){
+		setTimeout=(showResult(),8000 );
+	}
+	function showResult(){
+		var result=document.getElementById("result");
+		result.style.display="none";
+	}
+
+	//setInterval("showTime()" , 5000 );没过5秒钟就执行一次showTime(),循环执行,setTimeOut("showTime()",5000)只执行一次,如果要重复的话可以再showtime里面再调用一次setTimneout();
+	/*
+		function showtime(){
+			alert("dadfas");
+			setTimeOut("showtime()",500);
+		}
+	*/
   	var xhr=createXHR();
 	var s1=document.getElementById("menu_level");
 	var s2=document.getElementById("father_menu_level");
@@ -61,21 +77,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var index = s1.selectedIndex;
 		var text = s1.options[index].text;
 		var value = s1.options[index].value;
-		alert("text:"+text+"  value:"+value);
 		s2.options.length=0;
 		if(index==0){
+			document.getElementById("menu_value").setAttribute("disabled","disabled");
 			return;
 		}
-	  	xhr.open("POST","AddMenuServlet",true);
+		document.getElementById("menu_value").removeAttribute("disabled");
+	  	xhr.open("POST","ShowMenuLevelServlet",true);
 		xhr.setRequestHeader("content-type","application/x-www-form-urlencoded; charset=UTF-8");
 		xhr.onreadystatechange=update;
 		xhr.send("father_level="+(value-1));
-		/*
-		for(var i=0;i<10;i++){
-		s2.add(new Option("text"+i,i));
-		s2.options.length=0;
-		}
-		*/
 	}
 
 	function update(){
@@ -83,8 +94,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(xhr.status == 200){
 				var result=xhr.responseText;
 				var data=JSON.parse(result);
-				//alert("data[0].menulevel:"+data[0].menulevel+" menuname:"+data[0].menuname);
-				//alert("data:"+data);
 				for(var i=0;i<data.length;i++){
 					s2.add(new Option(data[i].menuname,data[i].menuid));
 				}
