@@ -1,10 +1,47 @@
 <%@ page language="java" import="java.util.*" pageEncoding="gbk"%>
+<%@page import="com.inews.entity.*"%>
+<%@page import="com.inews.utils.DbCRUD"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 request.setCharacterEncoding("gbk");
 String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
 %>
+<% DbCRUD db = new DbCRUD();
+	String query = "SELECT * FROM news where newsid=?;";
+		int value = 1;
+		ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) db.query(query, value);
+		News news = new News();
+		int count = 0;
+		for (Map<String, Object> map : data) {
+			Set<String> set = map.keySet();
+			Iterator<String> it = set.iterator();
+			while (it.hasNext()) {
+				String name = (String) it.next();
+				if(name.equals("newstitle")){
+					news.setNewsTitle((String)map.get(name));
+					//System.out.println(map.get(name));
+				}
+				if(name.equals("newsbody")){
+					news.setNewsBody((String)map.get(name));
+					//System.out.println(map.get(name));
+				}
+				if(name.equals("newsimage")){
+					news.setNewsImage((String)map.get(name));
+					//System.out.println(map.get(name));
+				}
+				if(name.equals("newsvideo")){
+					news.setNewsVideo((String)map.get(name));
+					//System.out.println(map.get(name));
+				}
+
+				count++;
+			}
+
+		}
+		//System.out.println(news.getNewsTitle());
+ %>
+ 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="zh-ch">
@@ -35,13 +72,19 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 			});
 			prettyPrint();
 		});
+		function validate(){
+			var ar = document.forms[0].content1.value;
+			if(!ar){
+				alert("不能为空!");
+			}
+		}
 	</script>
 	<title>主页</title>
 </head>
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
 <body>
 	<div class="header">
-		<div class="img1">
+		<div class="img1">&nbsp; 
 			<img src="static/images/logo.jpg" alt="logo">
 		</div>
 		<div class="button">
@@ -76,16 +119,31 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 	
 	<div id="content">
 	
-		<div id="head">标题栏：名称，时间，来源</div>
+		<div id="head">标题栏：名称<%= news.getNewsTitle() %>，时间，来源</div>
 		
-		<div id="imgword">图像，视频，文字</div>
+		<div id="imgword" align="center">
+		图像<% if(news.getNewsImage()!=null){
+			out.write("<img src='images/"+news.getNewsImage()+"' width='400px' height='500px' />");
+		} %>
+		<br/>
+		视频<% if(news.getNewsImage()!=null){
+			out.write(" <video  width='400px' height='300px'  autoplay='autoplay' src='video/"+news.getNewsVideo()+"' controls='controls'> 	</video>");
+		} %>
+		
+
+
+
+	
+		文字<br/><%=news.getNewsBody() %></div>
 		
 	    <%=htmlData%>
-	    
-		<form name="example" method="post" action="/iNews/SubmitServlet">
+	    评论区：
+		<form name="example" method="post" action="/iNews/SubmitServlet" onsubmit="return validate(this)">
+
 			<div id="comment">
-			<textarea name="content1" cols="100" rows="8" style="width:966px;height:200px;visibility:hidden;"><%=htmlspecialchars(htmlData)%></textarea>
+			<textarea name="content1" cols="100" rows="8" style="width:966px;height:200px;visibility:hidden;" onclick="method()"><%=htmlspecialchars(htmlData)%></textarea>
 			<br />
+
 			<input type="submit" name="button" value="提交评论" /> (提交快捷键: Ctrl + Enter)
 			<input type="hidden" name="username"/>
 			</div>
