@@ -58,6 +58,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 </head>
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
 <body>
+<!-- 测试代码 -->		<a href="news_inspect2.jsp">审核表单</a>
 	<div class="header">
 		<div class="img1"> 
 			<img src="static/images/logo.jpg" alt="logo">

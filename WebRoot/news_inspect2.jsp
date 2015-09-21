@@ -20,8 +20,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+			//实现查询用户级别 产生不同权限
+		String userid = (String)request.getSession().getAttribute("userId");
+		String user[]=	new String[20];		//让不同级别用户对应不同界面显示	0-   1    2    3
+		DbCRUD db = new DbCRUD();
+		String query = "SELECT roleid FROM role_user where userid=?;";
+		ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) db.query(query, userid);
+		RoleUser rs = new RoleUser();
+		int count = 0;
+		for (Map<String, Object> map : data) {
+			Set<String> set = map.keySet();
+			Iterator<String> it = set.iterator();
+			while (it.hasNext()) {
+				String name = (String) it.next();
+				if(name.equals("roleid")){
+					//int in = (map.get(name));
+					//System.out.println(map.get(name));
+				}
 
-		
+				count++;
+			}
+
+		}	
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -153,7 +173,9 @@ for(i=0;i<cs.length;i++){
 	            <td width="20%" height="22" background="images/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">基本操作</div></td>
 	          </tr>
 	          
-	          <% for(i = 0; i < news.length; i++){%>
+	          <% for(i = 0; i < news.length; i++){
+	          		if(news[i].getIsPublish() == 0){
+	          %>
 	          <tr>
 	            <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
 	              <div align="center"><%=i+1%></div>
@@ -194,7 +216,7 @@ for(i=0;i<cs.length;i++){
 				</span></div></td>
 	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" />&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" />审核操作</span></div></td>
 	          </tr>
-			<%} %>
+			<%} } %>
 	        </table></td>
 	        <td width="8" background="images/tab_15.gif">&nbsp;</td>
 	      </tr>

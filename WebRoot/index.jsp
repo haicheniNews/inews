@@ -57,7 +57,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="news">
 				<div class="title"><span>热点新闻 </span><a href="">查看更多</a> </div>
 				<ul>
-					<li><a href="#">这里是一条新闻</a></li>
+					<li><%String viewer; 
+					if(request.getSession().getAttribute("userId")==null){viewer="login.jsp";}
+					else{viewer="press_release.jsp";} %><a href="<%=viewer %>">新闻发布栏目</a></li>
 					<li><a href="#">这里是一条新闻</a></li>
 					<li><a href="#">这里是一条新闻</a></li>
 					<li><a href="#">这里是一条新闻</a></li>

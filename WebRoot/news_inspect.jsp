@@ -83,6 +83,7 @@ for(i=0;i<cs.length;i++){
 		<div class="img1">&nbsp; 
 			<img src="static/images/logo.jpg" alt="logo">
 		</div>
+
 		<div class="button">
 		<c:if test="${sessionScope.userId==null}"> 
 			<a href="login.jsp">登陆</a>
