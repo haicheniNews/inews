@@ -174,7 +174,7 @@ for(i=0;i<cs.length;i++){
 			            </div></td>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_map.roleid}</span></div></td>
 			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_map.rolename }</span></div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" /><a href="<%=basePath %>admin/update_menu.jsp?menuId=${role_map.roleid  }">编辑</a>&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" /><a href="<%=basePath %>DeleteMenuById?menu_id=${role_map.menuid  }" onclick="return deleteRecord(${menu_map.menulevel  })" id="delete">删除</a></span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" /><a href="<%=basePath %>admin/role_update.jsp?menuId=${role_map.roleid  }">编辑</a>&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" /><a href="<%=basePath %>DeleteMenuById?menu_id=${role_map.menuid  }" onclick="return deleteRecord(${menu_map.menulevel  })" id="delete">删除</a></span></div></td>
 			          </tr>
 		          </c:forEach>
 		
