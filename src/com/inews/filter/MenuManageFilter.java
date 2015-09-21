@@ -40,6 +40,9 @@ public class MenuManageFilter implements Filter {
 		request.getSession().setAttribute("start",1);
 		request.getSession().setAttribute("end",9);
 		request.getSession().setAttribute("menu_level",-1);
+		request.getSession().removeAttribute("updateMenuSuc");
+		request.getSession().removeAttribute("addMenuSuc");
+		
 		arg2.doFilter(arg0, arg1);
 
 	}

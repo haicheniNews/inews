@@ -45,6 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</select>
     		 </div>
     		<div><input class="left_label" type="text" value="菜单地址:" disabled="disabled"/>		<input type="text" id="menu_value" name="menu_value" disabled="disabled" /></div>
+    		<div><input class="left_label" type="text" value="菜单描述:" disabled="disabled"/>		<input type="text" id="menu_value" name="menu_desc"/></div>
     		<div style="margin-top:5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="确认"/>&nbsp;&nbsp;&nbsp;&nbsp;
     				<input type="button" value="取消" onClick="location.href='<%=basePath %>admin/menu_query_body.jsp'"/></div>
     		<div id="result" ><input class="left_label" type="text" value="${addMenuSuc}" disabled="disabled" style="color:#FF0000;"/></div>

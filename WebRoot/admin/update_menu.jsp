@@ -43,6 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		 </div>
     		<div><input class="left_label" type="text" value="菜单地址:" disabled="disabled"/>	
     				<input type="text" id="menu_value" name="menu_value" value="${menuMap.menuvalue }" <c:if test="${menuMap.fatherid==-1}">disabled="disabled"</c:if> /></div>
+    				<div><input class="left_label" type="text" value="菜单描述:" disabled="disabled"/>		<input type="text" id="menu_value" name="menu_desc" value="${menuMap.menudesc }"/></div>
     				<input type="hidden" value="${menuMap.menuid }" name="menu_id"/>
     				
     		<div style="margin-top:5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="确认"/>&nbsp;&nbsp;&nbsp;&nbsp;

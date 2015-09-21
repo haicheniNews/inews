@@ -57,7 +57,7 @@ CREATE TABLE `id_card` (
 
 /*Data for the table `id_card` */
 
-insert  into `id_card`(`userid`,`password`) values ('ddd','ddd'),('qqq','qqq'),('sds','dcs'),('sswq','sswq');
+insert  into `id_card`(`userid`,`password`) values ('aaa','aaa'),('admin','admin'),('ccc','ccc'),('ddd','ddd'),('qqq','qqq'),('sds','dcs'),('ssasa','qqqq'),('sswq','sswq');
 
 /*Table structure for table `menu` */
 
@@ -69,12 +69,13 @@ CREATE TABLE `menu` (
   `menuvalue` varchar(200) DEFAULT NULL COMMENT '菜单值:一般为一个路径地址',
   `menufatherid` int(10) DEFAULT NULL COMMENT '父菜单id',
   `menulevel` int(10) NOT NULL COMMENT '菜单等级:1为一级菜单;2为二级菜单:3为三级菜单',
+  `menudesc` varchar(200) DEFAULT NULL COMMENT '菜单描叙',
   PRIMARY KEY (`menuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='权力表';
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='权力表';
 
 /*Data for the table `menu` */
 
-insert  into `menu`(`menuid`,`menuname`,`menuvalue`,`menufatherid`,`menulevel`) values (1,'系统管理',NULL,0,0),(3,'用户权限管理','manageright.jsp',1,1),(4,'菜单管理','managemenu.jsp',1,1),(5,'新闻系统管理',NULL,0,0),(6,'编辑管理','',5,1),(7,'论坛管理','forum.jsp',5,1),(9,'新闻人管理',NULL,5,1),(10,'新闻人增加','add.jsp',9,2);
+insert  into `menu`(`menuid`,`menuname`,`menuvalue`,`menufatherid`,`menulevel`,`menudesc`) values (-1,'无父菜单',NULL,NULL,-2,NULL),(1,'系统管理',NULL,-1,0,NULL),(2,'用户角色管理','manage_role.jsp',1,1,'给用户赋予角色'),(3,'角色权限管理','role_right_manage.jsp',1,1,'角色权限的分配'),(4,'菜单管理','menu_query_body.jsp',1,1,NULL),(5,'新闻系统管理',NULL,-1,0,NULL),(6,'编辑管理','manage_wr.jsp',5,1,NULL),(7,'论坛管理','forum.jsp',5,1,NULL),(8,'模块管理','test.jsp',5,1,NULL),(9,'新闻人管理',NULL,5,1,NULL),(33,'dadfafds','asdfasdfasd',5,1,'aa开讲啦卡缴费单fff');
 
 /*Table structure for table `news` */
 
@@ -112,12 +113,14 @@ CREATE TABLE `news_type` (
 DROP TABLE IF EXISTS `role`;
 
 CREATE TABLE `role` (
-  `roleid` int(10) NOT NULL COMMENT '角色id',
+  `roleid` int(10) NOT NULL AUTO_INCREMENT COMMENT '角色id',
   `rolename` varchar(20) NOT NULL COMMENT '角色名',
   PRIMARY KEY (`roleid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='角色表';
 
 /*Data for the table `role` */
+
+insert  into `role`(`roleid`,`rolename`) values (1,'超级管理员'),(2,'新闻系统管理员'),(3,'主编'),(4,'副主编'),(5,'编辑'),(6,'实习生'),(7,'普通用户'),(8,'t1'),(9,'t22'),(10,'t3'),(11,'t4'),(12,'t5'),(13,'t6'),(14,'t7'),(15,'t8'),(16,'t9'),(17,'t10');
 
 /*Table structure for table `role_menu` */
 
@@ -130,6 +133,8 @@ CREATE TABLE `role_menu` (
 
 /*Data for the table `role_menu` */
 
+insert  into `role_menu`(`menuid`,`roleid`) values (1,1),(2,1),(3,1),(4,2),(5,2),(6,2);
+
 /*Table structure for table `role_user` */
 
 DROP TABLE IF EXISTS `role_user`;
@@ -140,6 +145,8 @@ CREATE TABLE `role_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='角色用户关联表';
 
 /*Data for the table `role_user` */
+
+insert  into `role_user`(`roleid`,`userid`) values (1,'admin'),(2,'admin'),(7,'aaa'),(7,'ccc'),(5,'ccc');
 
 /*Table structure for table `user_info` */
 
@@ -161,7 +168,7 @@ CREATE TABLE `user_info` (
 
 /*Data for the table `user_info` */
 
-insert  into `user_info`(`userid`,`username`,`usersex`,`userage`,`useraddress`,`useremail`,`userbirth`,`userphone`,`usercountry`,`userremarks`) values ('ddd',NULL,NULL,NULL,NULL,'Chenzhijun1995@gmail.com',NULL,NULL,NULL,NULL),('qqq',NULL,NULL,NULL,NULL,'Chenzhijun1995@gmail.com',NULL,NULL,NULL,NULL),('sds',NULL,NULL,NULL,NULL,'chen@123.com',NULL,NULL,NULL,NULL),('sswq',NULL,NULL,NULL,NULL,'Chenzhijun1995@gmail.com',NULL,NULL,NULL,NULL);
+insert  into `user_info`(`userid`,`username`,`usersex`,`userage`,`useraddress`,`useremail`,`userbirth`,`userphone`,`usercountry`,`userremarks`) values ('aaa',NULL,NULL,NULL,NULL,'chen@qq.com',NULL,NULL,NULL,NULL),('admin',NULL,NULL,NULL,NULL,'Chenzhijun1995@gmail.com',NULL,NULL,NULL,NULL),('ccc',NULL,NULL,NULL,NULL,'aa@qq.com',NULL,NULL,NULL,NULL),('ddd',NULL,NULL,NULL,NULL,'Chenzhijun1995@gmail.com',NULL,NULL,NULL,NULL),('qqq',NULL,NULL,NULL,NULL,'Chenzhijun1995@gmail.com',NULL,NULL,NULL,NULL),('sds',NULL,NULL,NULL,NULL,'chen@123.com',NULL,NULL,NULL,NULL),('ssasa',NULL,NULL,NULL,NULL,'aa@qq.com',NULL,NULL,NULL,NULL),('sswq',NULL,NULL,NULL,NULL,'Chenzhijun1995@gmail.com',NULL,NULL,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

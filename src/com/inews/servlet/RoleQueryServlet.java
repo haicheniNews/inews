@@ -1,6 +1,10 @@
 package com.inews.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,17 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.inews.utils.DbCRUD;
 import com.inews.utils.StringUtils;
 
-/**
- * 菜单新增页面
- * @author chenzhijun
- *
- */
-public class AddMenuServlet extends HttpServlet {
+public class RoleQueryServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public AddMenuServlet() {
+	public RoleQueryServlet() {
 		super();
 	}
 
@@ -44,7 +43,8 @@ public class AddMenuServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			this.doPost(request, response);
+
+		this.doPost(request, response);
 	}
 
 	/**
@@ -59,40 +59,35 @@ public class AddMenuServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String menuName=request.getParameter("menu_name");
-//System.out.println("menuName1:="+menuName);
-		String fatherMenuLevel=request.getParameter("father_menu_level");
-		String menuLevel=request.getParameter("menu_level");
-		String menuValue=request.getParameter("menu_value");
-		String menuDesc=request.getParameter("menu_desc");
-		
-//System.out.println("menuName:"+new String(menuName.getBytes(),"utf-8"));
-		
-		String sql="INSERT INTO menu VALUES(NULL,?,?,?,?,?);";
-		DbCRUD dc=new DbCRUD();
-		
-		if(StringUtils.isNull(menuDesc)||StringUtils.isNull(menuLevel)||StringUtils.isNull(menuValue)||StringUtils.isNull(menuName)){
-			request.getSession().setAttribute("adminError", "系统错误");
-			response.sendRedirect("error.jsp");
+		String textfield=request.getParameter("textfield");
+		System.out.println(textfield);
+		int start;
+		int end;
+		String s=request.getParameter("start");
+		if(StringUtils.isNull(s)){
+			s="0";
 		}
-		int result=0;
-		if(null==fatherMenuLevel){
-			fatherMenuLevel="-1";
-			sql="INSERT INTO menu VALUES(NULL,?,NULL,?,?,?);";
-			result=(Integer)dc.insert(sql, menuName,Integer.parseInt(fatherMenuLevel),Integer.parseInt(menuLevel),menuDesc);
-		}else{
-			result=(Integer)dc.insert(sql, menuName,menuValue,Integer.parseInt(fatherMenuLevel),Integer.parseInt(menuLevel),menuDesc);
-			
-		}
-		dc.releaseConn();
-		if(result==1){
-			request.getSession().setAttribute("addMenuSuc", "增加成功");
-			response.sendRedirect("admin/add_menu.jsp");
+		start=Integer.parseInt(s);
+		end=10;
+		
+		if(start<0||end<0){
+			response.sendRedirect("admin/role_right_manage.jsp");
+			return;
 		}
 		
+		DbCRUD db=new DbCRUD();
+		StringBuffer sql=new StringBuffer("select * from role limit ?,?;");
 		
+		List<Map<String,Object>> list=(ArrayList<Map<String, Object>>) db.query(sql.toString(),start,end);
+		
+		request.getSession().setAttribute("roleList", list);
+		request.getSession().setAttribute("start",start);
+		request.getSession().setAttribute("end",end);
+		request.getSession().setAttribute("textFiled", textfield);
+		request.getRequestDispatcher("admin/role_right_manage.jsp").forward(request, response);
 	}
 
 	/**
