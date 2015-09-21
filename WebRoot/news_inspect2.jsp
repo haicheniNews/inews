@@ -5,8 +5,8 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-
 %>
+
 <% 
 		NewsDao newsdao = new NewsDao();
 		News[] news =new News[newsdao.queryAll().length];
@@ -20,28 +20,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 			//实现查询用户级别 产生不同权限
 		String userid = (String)request.getSession().getAttribute("userId");
-		String user[]=	new String[20];		//让不同级别用户对应不同界面显示	0-   1    2    3
+			//让不同级别用户对应不同界面显示	0-   1    2    3
+		int[] user ={2,1,0,0,0,0,-1};
+		//得到roleid
+				System.out.println(userid);
 		DbCRUD db = new DbCRUD();
-		String query = "SELECT roleid FROM role_user where userid=?;";
+		int roleid[] = new int[1];
+		int j;
+		String query = "SELECT * FROM role_user where userid=?;";
 		ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) db.query(query, userid);
-		RoleUser rs = new RoleUser();
+		RoleUser rs[] = new RoleUser[100];
 		int count = 0;
 		for (Map<String, Object> map : data) {
-			Set<String> set = map.keySet();
-			Iterator<String> it = set.iterator();
-			while (it.hasNext()) {
-				String name = (String) it.next();
-				if(name.equals("roleid")){
-					//int in = (map.get(name));
-					//System.out.println(map.get(name));
-				}
-
-				count++;
-			}
+			roleid[0] = (Integer)map.get("roleid");
 
 		}	
+		int tempint = roleid[0];
+		
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -174,7 +173,7 @@ for(i=0;i<cs.length;i++){
 	          </tr>
 	          
 	          <% for(i = 0; i < news.length; i++){
-	          		if(news[i].getIsPublish() == 0){
+	          		
 	          %>
 	          <tr>
 	            <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
@@ -200,13 +199,13 @@ for(i=0;i<cs.length;i++){
 	            %>
 	            </span></div></td>
 	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">
-	            <%    if(news[i].getIsPublish() == 0){
+	            <%    if(tempint == 0){
 	            			out.print("待审核"); 
-	            	  } else if(news[i].getIsPublish() == 1){
+	            	  } else if(tempint == 1){
 	            	  		out.print("初审");
-	            	  }else if(news[i].getIsPublish() == 2){
+	            	  }else if(tempint == 2){
 	            	  		out.print("复审");
-	            	  }else if(news[i].getIsPublish() == 3){
+	            	  }else if(tempint == 3){
 	            	  		out.print("审核不过");
 	            	  }else {
 	            	  		out.print("null");
@@ -216,7 +215,7 @@ for(i=0;i<cs.length;i++){
 				</span></div></td>
 	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" />&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" />审核操作</span></div></td>
 	          </tr>
-			<%} } %>
+			<%}  %>
 	        </table></td>
 	        <td width="8" background="images/tab_15.gif">&nbsp;</td>
 	      </tr>

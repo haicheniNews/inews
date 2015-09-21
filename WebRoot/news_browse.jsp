@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gbk"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.inews.entity.*"%>
 <%@page import="com.inews.utils.DbCRUD"%>
 <%
@@ -7,9 +7,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 request.setCharacterEncoding("gbk");
 String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
 %>
-<% DbCRUD db = new DbCRUD();
+<%		String nid =(String)request.getAttribute("nid");
+		//é€šè¿‡nidæŸ¥è¯¢å¯¹åº”çš„newsé‡Œé¢çš„å†…å®¹
+ DbCRUD db = new DbCRUD();
 	String query = "SELECT * FROM news where newsid=?;";
-		int value = 1;
+		int value = Integer.parseInt(nid);
 		ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) db.query(query, value);
 		News news = new News();
 		int count = 0;
@@ -34,12 +36,26 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 					news.setNewsVideo((String)map.get(name));
 					//System.out.println(map.get(name));
 				}
-
+				if(name.equals("newsdate")){
+					news.setNewsDate((String)map.get(name));
+					//System.out.println(map.get(name));
+				}
+				if(name.equals("userid")){
+					news.setNewsAuthor((String)map.get(name));
+					//System.out.println(map.get(name));
+				}
+				if(name.equals("newsid")){
+					news.setNewsId((Integer)map.get(name));
+					//System.out.println(map.get(name));
+				}
 				count++;
 			}
 
 		}
 		//System.out.println(news.getNewsTitle());
+		//é€šè¿‡newsidæŸ¥è¯¢å¯¹åº”çš„commenté‡Œé¢çš„commentbody
+		String query2 = "SELECT * FROM comment where newsid=?;";
+		ArrayList<Map<String, Object>> data2 = (ArrayList<Map<String, Object>>) db.query(query2, value);
  %>
  
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -75,11 +91,11 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 		function validate(){
 			var ar = document.forms[0].content1.value;
 			if(!ar){
-				alert("²»ÄÜÎª¿Õ!");
+				alert("ä¸èƒ½ä¸ºç©º!");
 			}
 		}
 	</script>
-	<title>Ö÷Ò³</title>
+	<title>ä¸»é¡µ</title>
 </head>
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
 <body>
@@ -89,12 +105,12 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 		</div>
 		<div class="button">
 		<c:if test="${sessionScope.userId==null}"> 
-			<a href="login.jsp">µÇÂ½</a>
-			<a href="register.jsp">×¢²á</a> 
+			<a href="login.jsp">ç™»é™†</a>
+			<a href="register.jsp">æ³¨å†Œ</a> 
 		</c:if>
 		<c:if test="${sessionScope.userId!=null}">
 			<c:out value="welcome:${sessionScope.userId}"></c:out>
-			<a href="LogoutServlet" style="margin:0 0;padding 0 0;"><font size="1px">×¢Ïú</font></a>
+			<a href="LogoutServlet" style="margin:0 0;padding 0 0;"><font size="1px">æ³¨é”€</font></a>
 		</c:if>
 			
 		</div>	
@@ -102,31 +118,31 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 	<div class="nav">
 		<div class="title fl">
 			<ul>
-				<li><a href="#">Ê×Ò³</a></li>
-				<li><a href="#">ÈÈµã</a></li>
-				<li><a href="#">¾üÊÂ</a></li>
-				<li><a href="#">ÓéÀÖ</a></li>
-				<li><a href="#">¾­¼Ã</a></li>
-				<li><a href="#">Æû³µ</a></li>
+				<li><a href="#">é¦–é¡µ</a></li>
+				<li><a href="#">çƒ­ç‚¹</a></li>
+				<li><a href="#">å†›äº‹</a></li>
+				<li><a href="#">å¨±ä¹</a></li>
+				<li><a href="#">ç»æµ</a></li>
+				<li><a href="#">æ±½è½¦</a></li>
 			</ul>
 		</div>	
 
 			<div class="search fr">
-				<form action="url"><input type="text">&nbsp;<input type="submit" value="ËÑË÷">&nbsp;</form>
+				<form action="url"><input type="text">&nbsp;<input type="submit" value="æœç´¢">&nbsp;</form>
 			</div>
 		
 	</div>
 	
 	<div id="content">
 	
-		<div id="head">±êÌâÀ¸£ºÃû³Æ<%= news.getNewsTitle() %>£¬Ê±¼ä£¬À´Ô´</div>
+		<div id="head"><font size="15px"><%= news.getNewsTitle() %></font><br/>æ—¶é—´:<%=news.getNewsDate() %>ï¼Œä½œè€…ï¼š<%=news.getNewsAuthor() %></div>
 		
 		<div id="imgword" align="center">
-		Í¼Ïñ<% if(news.getNewsImage()!=null){
+		å›¾åƒ<% if(news.getNewsImage()!="" && news.getNewsImage()!=null){
 			out.write("<img src='images/"+news.getNewsImage()+"' width='400px' height='500px' />");
 		} %>
 		<br/>
-		ÊÓÆµ<% if(news.getNewsImage()!=null){
+		è§†é¢‘<% if(news.getNewsImage()!="" && news.getNewsImage()!=null){
 			out.write(" <video  width='400px' height='300px'  autoplay='autoplay' src='video/"+news.getNewsVideo()+"' controls='controls'> 	</video>");
 		} %>
 		
@@ -134,18 +150,33 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 
 
 	
-		ÎÄ×Ö<br/><%=news.getNewsBody() %></div>
+		æ–‡å­—<br/><%=news.getNewsBody() %></div>
+		<br/>
+		å·²è¯„è®ºåŒº:
 		
+		<div>
+			<% 
+				for(int j=0;j < data2.size();j++){
+  						Map<String ,Object>  map=data2.get(j);
+			%>
+<%=map.get("commentbody") %>
+			<textarea style="width:1000px;height:200px;font: 1px solid red;"  >	</textarea>
+			
+			<% System.out.println(map.get("commentbody"));}
+			%>
+		</div>
+		<br/>
 	    <%=htmlData%>
-	    ÆÀÂÛÇø£º
-		<form name="example" method="post" action="/iNews/SubmitServlet" onsubmit="return validate(this)">
+	  <br/>  è¯„è®ºåŒºï¼š
+		<form name="example" method="post" action="SubmitCommentServlet" onsubmit="return validate(this)">
 
 			<div id="comment">
 			<textarea name="content1" cols="100" rows="8" style="width:966px;height:200px;visibility:hidden;" onclick="method()"><%=htmlspecialchars(htmlData)%></textarea>
 			<br />
 
-			<input type="submit" name="button" value="Ìá½»ÆÀÂÛ" /> (Ìá½»¿ì½İ¼ü: Ctrl + Enter)
-			<input type="hidden" name="username"/>
+			<input type="submit" name="button" value="æäº¤è¯„è®º" /> (æäº¤å¿«æ·é”®: Ctrl + Enter)
+			<input type="hidden" name="newsid" value="<%=news.getNewsId()%>"/>
+			<input type="hidden" name="newsauthor" value="<%=request.getSession().getAttribute("userId")%>"/>
 			</div>
 		</form>	
 		
@@ -155,19 +186,19 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 	<div class="footer" >
 				 <div id="site_nav">
 				    <ul>
-				      <li><a href="/index/service">¹ã¸æ·şÎñ</a></li>
-				      <li><a href="/index/contactus">ÁªÏµÎÒÃÇ</a></li>
-				      <li ><a href="/index/friend_links">ÓÑÇéÁ´½Ó:</a></li>
-				      <li ><a href="#">°Ù¶È</a></li>
-				  	  <li ><a href="#">ËÑºü</a></li>
-					  <li ><a href="#">¹È¸è</a></li>
-					  <li class="last" ><a href="#">ĞÂÀË</a></li>
+				      <li><a href="/index/service">å¹¿å‘ŠæœåŠ¡</a></li>
+				      <li><a href="/index/contactus">è”ç³»æˆ‘ä»¬</a></li>
+				      <li ><a href="/index/friend_links">å‹æƒ…é“¾æ¥:</a></li>
+				      <li ><a href="#">ç™¾åº¦</a></li>
+				  	  <li ><a href="#">æœç‹</a></li>
+					  <li ><a href="#">è°·æ­Œ</a></li>
+					  <li class="last" ><a href="#">æ–°æµª</a></li>
 				    </ul>
 				  </div>
 				 
 				  <div id="copyright">
-				    &copy; 2003-2015 ITeye.com.    [ <a href="http://www.miibeian.gov.cn">¾©ICPÖ¤110151ºÅ</a>  ¾©¹«Íø°²±¸110105010620 ]<br/>
-				    iNews(±±¾©)Í¶×ÊÓĞÏŞ¹«Ë¾  °æÈ¨ËùÓĞ<br />
+				    &copy; 2003-2015 ITeye.com.    [ <a href="http://www.miibeian.gov.cn">äº¬ICPè¯110151å·</a>  äº¬å…¬ç½‘å®‰å¤‡110105010620 ]<br/>
+				    iNews(åŒ—äº¬)æŠ•èµ„æœ‰é™å…¬å¸  ç‰ˆæƒæ‰€æœ‰<br />
 				  </div>
 	</div>
 
