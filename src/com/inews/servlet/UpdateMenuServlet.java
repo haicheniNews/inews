@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.inews.utils.DbCRUD;
 
+/**
+ * 更新菜单的值:主要是菜单名,和菜单值
+ * @author chenzhijun
+ *
+ */
 public class UpdateMenuServlet extends HttpServlet {
 
 	/**
@@ -58,13 +63,17 @@ public class UpdateMenuServlet extends HttpServlet {
 		String id=request.getParameter("menu_id");
 		String menuName=request.getParameter("menu_name");
 		String menuValue=request.getParameter("menu_value");
+		String menuDesc=request.getParameter("menu_desc");
 		
 		StringBuffer sql=new StringBuffer("UPDATE menu SET  ");
 		if(menuName!=null){
-			sql.append(" menuname='"+menuName+"',");
+			sql.append(" menuname='"+menuName+"'");
 		}
 		if(menuValue!=null){
-			sql.append(" menuvalue='"+menuValue+"'");
+			sql.append(" ,menuvalue='"+menuValue+"'");
+		}
+		if(menuValue!=null){
+			sql.append(" ,menudesc='"+menuDesc+"' ");
 		}
 		sql.append(" WHERE menuid="+Integer.parseInt(id)+";");
 		DbCRUD dc=new DbCRUD();

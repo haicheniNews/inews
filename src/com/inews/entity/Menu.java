@@ -12,6 +12,7 @@ public class Menu {
 	private String menuValue;
 	private int menuFatherId;
 	private int menuLevel;
+	private String menuDesc;
 	public int getMenuId() {
 		return menuId;
 	}
@@ -42,6 +43,14 @@ public class Menu {
 	public void setMenuLevel(int menuLevel) {
 		this.menuLevel = menuLevel;
 	}
+	public String getMenuDesc() {
+		return menuDesc;
+	}
+	public void setMenuDesc(String menuDesc) {
+		this.menuDesc = menuDesc;
+	}
+	
+	
 
 	
 }

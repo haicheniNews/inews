@@ -15,6 +15,11 @@ import org.json.JSONObject;
 
 import com.inews.utils.DbCRUD;
 
+/**
+ * 新增菜单时点击上面的菜单等级, 弹出父菜单等级
+ * @author chenzhijun
+ *
+ */
 public class ShowMenuLevelServlet extends HttpServlet {
 
 	/**

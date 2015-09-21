@@ -3,27 +3,23 @@ package com.inews.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.inews.utils.DbCRUD;
+import com.inews.utils.StringUtils;
 
-/**
- * 登录servlet
- * @author lihanchun
- *
- */
-public class LoginServlet extends HttpServlet {
+public class RoleQueryServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public LoginServlet() {
+	public RoleQueryServlet() {
 		super();
 	}
 
@@ -63,35 +59,36 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		PrintWriter out = response.getWriter();
-		String id = request.getParameter("username");
-		String password = request.getParameter("password");
-		String remember=request.getParameter("remember");
-		System.out.println("remember:"+remember);
+		String textfield=request.getParameter("textfield");
+		System.out.println(textfield);
+		int start;
+		int end;
+		String s=request.getParameter("start");
+		if(StringUtils.isNull(s)){
+			s="0";
+		}
+		start=Integer.parseInt(s);
+		end=10;
+		
+		if(start<0||end<0){
+			response.sendRedirect("admin/role_right_manage.jsp");
+			return;
+		}
+		
 		DbCRUD db=new DbCRUD();
-		String sql="select * from id_card where userid=? and password=?";
+		StringBuffer sql=new StringBuffer("select * from role limit ?,?;");
 		
-		ArrayList<Map<String,Object>>list= (ArrayList<Map<String, Object>>) db.query(sql,id,password);
-		if("remember-me".equals(remember)){
-			rememberMe(id,password,response);
-		}
-		if(list.size()>0){
-			request.getSession().setAttribute("userId",id);
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-			
-//			response.sendRedirect("index.jsp");
-		}else{
-				response.sendRedirect("login.jsp");
-			}
-		}
+		List<Map<String,Object>> list=(ArrayList<Map<String, Object>>) db.query(sql.toString(),start,end);
 		
-		
-	    
-		
-	
-	
+		request.getSession().setAttribute("roleList", list);
+		request.getSession().setAttribute("start",start);
+		request.getSession().setAttribute("end",end);
+		request.getSession().setAttribute("textFiled", textfield);
+		request.getRequestDispatcher("admin/role_right_manage.jsp").forward(request, response);
+	}
 
 	/**
 	 * Initialization of the servlet. <br>
@@ -101,12 +98,5 @@ public class LoginServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// Put your code here
 	}
-	
-	private void rememberMe(String userName,String password,HttpServletResponse response){
-		Cookie user=new Cookie("user",userName+"-"+password);
-		user.setMaxAge(60);
-		response.addCookie(user);
-	}
-	
 
 }
