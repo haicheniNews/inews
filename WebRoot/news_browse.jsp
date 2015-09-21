@@ -88,12 +88,41 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 			});
 			prettyPrint();
 		});
-		function validate(){
-			var ar = document.forms[0].content1.value;
-			if(!ar){
-				alert("不能为空!");
+		function validate(e){
+			var va = document.getElementById("form1");
+			if(!va["content1"].value){
+				alert("您还没有输入值！");
+				return false;
+			}else{
+				if(va["content1"].value.length<12){
+					alert("编辑内容不少于12个字！");
+					return false;
+				}else{
+					return true;				
+				}
+
 			}
+			
 		}
+		
+
+　　 var checksubmitflg = false;
+　　 function checksubmit(e) {
+　　 if (checksubmitflg == true) {
+　　 return false;
+　　 }
+　　 checksubmitflg = true;
+　　 return true;
+　　 }
+　　 document.ondblclick = function docondblclick() {
+　　 window.event.returnvalue = false;
+　　 }
+　　 document.onclick = function doconclick() {
+　　 if (checksubmitflg) {
+　　 window.event.returnvalue = false;
+　　 }
+　　 }
+
 	</script>
 	<title>主页</title>
 </head>
@@ -159,18 +188,20 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 				for(int j=0;j < data2.size();j++){
   						Map<String ,Object>  map=data2.get(j);
 			%>
-<%=map.get("commentbody") %>
-			<textarea style="width:1000px;height:200px;font: 1px solid red;"  >	</textarea>
+评论人:<%=map.get("userid") %> &nbsp;&nbsp;&nbsp;&nbsp;时间:<%=map.get("commentdate") %>
+			<div style="width: 900px;height:100px; border: 1px solid red;"><%=map.get("commentbody") %></div>
+<br/>			
 			
-			<% System.out.println(map.get("commentbody"));}
+			<% }
 			%>
 		</div>
 		<br/>
-	    <%=htmlData%>
+	 
 	  <br/>  评论区：
-		<form name="example" method="post" action="SubmitCommentServlet" onsubmit="return validate(this)">
+		<form name="example" method="post" id="form1" action="SubmitCommentServlet" onsubmit="return checksubmit();">
 
 			<div id="comment">
+			
 			<textarea name="content1" cols="100" rows="8" style="width:966px;height:200px;visibility:hidden;" onclick="method()"><%=htmlspecialchars(htmlData)%></textarea>
 			<br />
 
