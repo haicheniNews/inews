@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="register.jsp">注册</a> 
 		</c:if>
 		<c:if test="${sessionScope.userId!=null}">
-			<c:out value="welcome:${sessionScope.userId}"></c:out>
+			<a href='userinfo.jsp'> <c:out value="welcome:${sessionScope.userId}"></c:out> </a>
 			<a href="LogoutServlet" style="margin:0 0;padding 0 0;"><font size="1px">注销</font></a>
 		</c:if>
 			
