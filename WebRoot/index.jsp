@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="register.jsp">注册</a> 
 		</c:if>
 		<c:if test="${sessionScope.userId!=null}">
-			<c:out value="welcome:${sessionScope.userId}"></c:out>
+			<a href='userinfo.jsp'> <c:out value="welcome:${sessionScope.userId}"></c:out> </a>
 			<a href="LogoutServlet" style="margin:0 0;padding 0 0;"><font size="1px">注销</font></a>
 		</c:if>
 			
@@ -57,7 +57,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="news">
 				<div class="title"><span>热点新闻 </span><a href="">查看更多</a> </div>
 				<ul>
-					<li><a href="#">这里是一条新闻</a></li>
+					<li><%String viewer; 
+					if(request.getSession().getAttribute("userId")==null){viewer="login.jsp";}
+					else{viewer="press_release.jsp";} %><a href="<%=viewer %>">新闻发布栏目</a></li>
 					<li><a href="#">这里是一条新闻</a></li>
 					<li><a href="#">这里是一条新闻</a></li>
 					<li><a href="#">这里是一条新闻</a></li>

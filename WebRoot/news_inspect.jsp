@@ -1,7 +1,27 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@page import="com.inews.utils.DbCRUD"%>
+<%@page import="com.inews.entity.*"%>
+<%@page import="com.inews.jdbcdao.*"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
+%>
+<% 
+		NewsDao newsdao = new NewsDao();
+		News[] news =new News[newsdao.queryAll().length];
+		int i;
+			
+		try {		
+
+			news = newsdao.queryAll();
+			//request.getSession().setAttribute("news",news);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -60,9 +80,10 @@ for(i=0;i<cs.length;i++){
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
 <body>
 	<div class="header">
-		<div class="img1">
+		<div class="img1">&nbsp; 
 			<img src="static/images/logo.jpg" alt="logo">
 		</div>
+
 		<div class="button">
 		<c:if test="${sessionScope.userId==null}"> 
 			<a href="login.jsp">登陆</a>
@@ -78,7 +99,7 @@ for(i=0;i<cs.length;i++){
 	<div class="nav">
 		<div class="title fl">
 			<ul>
-				<li><a href="#">首页</a></li>
+				<li><a href="index.jsp">首页</a></li>
 				<li><a href="#">热点</a></li>
 				<li><a href="#">军事</a></li>
 				<li><a href="#">娱乐</a></li>
@@ -125,23 +146,54 @@ for(i=0;i<cs.length;i++){
 	          <tr>
 
 	            <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">序号</span></div></td>
-	            <td width="35%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">新闻标题</span></div></td>
+	            <td width="23%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">新闻标题</span></div></td>
 	            <td width="12%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">创建者</span></div></td>
-	            <td width="20%" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">创建时间</span></div></td>
+	            <td width="22%" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">创建时间</span></div></td>
+	            <td width="10%" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">类别</span></div></td>
 	            <td width="10%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">审核状态</span></div></td>
 	            <td width="20%" height="22" background="images/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">基本操作</div></td>
 	          </tr>
 	          
-	          <%for(int i = 1; i <= 5; i++){%>
+	          <% for(i = 0; i < news.length; i++){%>
 	          <tr>
 	            <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-	              <div align="center">007</div>
+	              <div align="center"><%=i+1%></div>
 	            </div></td>
-	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">论世界之平衡体系</span></div></td>
-	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">王启阳 </span></div></td>
-	            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">2007-11-16 15:00:20</span></div></td>
-	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">审核中</span></div></td>
-	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" />查看&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" />审核操作</span></div></td>
+	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=news[i].getNewsTitle()%></span></div></td>
+	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=news[i].getNewsAuthor() %></span></div></td>
+	            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><%=news[i].getNewsDate()%></span></div></td>
+	            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">
+	            <%
+					  if(news[i].getTypeId() == 0){
+	            			out.print("热点"); 
+	            	  } else if(news[i].getTypeId() == 1){
+	            	  		out.print("军事");
+	            	  }else if(news[i].getTypeId() == 2){
+	            	  	    out.print("娱乐");
+	            	  }else if(news[i].getTypeId() == 3){
+	            	  		out.print("经济");
+	            	  }else {
+	            	  		out.print("汽车");
+	            	  }    
+	            	  System.out.println(news[i].getIsPublish());	            
+	            %>
+	            </span></div></td>
+	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">
+	            <%    if(news[i].getIsPublish() == 0){
+	            			out.print("待审核"); 
+	            	  } else if(news[i].getIsPublish() == 1){
+	            	  		out.print("初审");
+	            	  }else if(news[i].getIsPublish() == 2){
+	            	  		out.print("复审");
+	            	  }else if(news[i].getIsPublish() == 3){
+	            	  		out.print("审核不过");
+	            	  }else {
+	            	  		out.print("null");
+	            	  }    
+
+	            	  %>
+				</span></div></td>
+	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" />&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" />审核操作</span></div></td>
 	          </tr>
 			<%} %>
 	        </table></td>
@@ -155,7 +207,7 @@ for(i=0;i<cs.length;i++){
 	        <td width="12" height="35"><img src="images/tab_18.gif" width="12" height="35" /></td>
 	        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
 	          <tr>
-	            <td class="STYLE4">&nbsp;&nbsp;共有 120 条记录</td>
+	            <td class="STYLE4">&nbsp;&nbsp;共有 <%= i %> 条记录</td>
 	            <td><table border="0" align="right" cellpadding="0" cellspacing="0">
 	                
 	            </table></td>

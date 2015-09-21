@@ -1,0 +1,33 @@
+CREATE DATABASE db_news DEFAULT CHARACTER SET utf8;//
+mysql -uroot -p
+USE gps;
+show databases;
+set names gbk;
+select * from dbname;
+CREATE TABLE dbname(name VARCHAR(20), sex CHAR(1));
+delete from dbname;
+http://localhost:8081/GPSWebShopping
+http://localhost:8081/FirstAjax/reg.html
+http://localhost:8081/iNews/editor/jsp/demo.jsp
+http://localhost:8081/iNews/admin/index.html
+http://localhost:8081/iNews/news_inspect.jsp
+http://localhost:8081/iNews/news_browse.jsp
+http://localhost:8081/iNews/press_release.jsp
+  <jsp:forward page="/WEB-INF/Login.jsp"></jsp:forward> 
+  	
+  	<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+
+		String userName=request.getParameter("userName");
+		String password=request.getParameter("password");
+		String confirmPassword=request.getParameter("confirmPassword");
+		String usedPhone=request.getParameter("usedPhone");
+		System.out.println("a");
+		
+		
