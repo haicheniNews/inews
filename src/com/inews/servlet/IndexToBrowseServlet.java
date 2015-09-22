@@ -8,17 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SubmitComTemServlet extends HttpServlet {
+public class IndexToBrowseServlet extends HttpServlet {
 
 	/**
-	 * The doGet method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
+	 * 从主页到某一新闻详情页  处理信息跳转
+	 * @author weipeng
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -26,9 +20,8 @@ public class SubmitComTemServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
-		String nid = (String)request.getAttribute("nid");
-		request.setAttribute("nid",nid);
-		
+		String name = (String)request.getParameter("name");
+		request.setAttribute("nid", name);
 		request.getRequestDispatcher("/news_browse.jsp").forward(request, response);
 	}
 

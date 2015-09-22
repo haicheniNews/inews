@@ -1,13 +1,22 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.inews.entity.*"%>
 <%@page import="com.inews.utils.DbCRUD"%>
+<!-- 
+某一具体新闻详情展示页面
+@author  weipeng
+ -->
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 request.setCharacterEncoding("gbk");
 String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
 %>
-<%		String nid =(String)request.getAttribute("nid");
+<%	
+String userid = (String)request.getSession().getAttribute("userId");
+if(userid == null){
+	userid = "游客";
+}
+	String nid =(String)request.getAttribute("nid");
 		//通过nid查询对应的news里面的内容
  DbCRUD db = new DbCRUD();
 	String query = "SELECT * FROM news where newsid=?;";
@@ -124,7 +133,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 　　 }
 
 	</script>
-	<title>主页</title>
+	<title>新闻浏览界面</title>
 </head>
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
 <body>
@@ -140,8 +149,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 		<c:if test="${sessionScope.userId!=null}">
 			<c:out value="welcome:${sessionScope.userId}"></c:out>
 			<a href="LogoutServlet" style="margin:0 0;padding 0 0;"><font size="1px">注销</font></a>
-		</c:if>
-			
+		</c:if>	
 		</div>	
 	</div>
 	<div class="nav">
@@ -207,7 +215,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 
 			<input type="submit" name="button" value="提交评论" /> (提交快捷键: Ctrl + Enter)
 			<input type="hidden" name="newsid" value="<%=news.getNewsId()%>"/>
-			<input type="hidden" name="newsauthor" value="<%=request.getSession().getAttribute("userId")%>"/>
+			<input type="hidden" name="newsauthor" value="<%=userid%>"/>
 			</div>
 		</form>	
 		

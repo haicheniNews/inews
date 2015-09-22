@@ -6,5 +6,8 @@ ALTER TABLE menu ENGINE=MYISAM;
 
 get方法提交的表单很多乱码问题
 
+重点注意，插入的数值
+insert  into `news_type`(`typeid`,`typename`) values (0,'热点'),(1,'军事'),(2,'娱乐'),(3,'经济'),(4,'汽车');
+
 
 

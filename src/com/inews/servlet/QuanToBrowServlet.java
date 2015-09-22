@@ -11,14 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 public class QuanToBrowServlet extends HttpServlet {
 
 	/**
-	 * The doGet method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
+	 * 从具体类别展示界面  到  类别中某一新闻的展示页面  （例如  从 军事类 里面点击   中美关系....  此标题进入的详情页）
+	 * @author weipeng
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

@@ -6,7 +6,10 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<!-- 
+新闻投递状态页面（对特定级别用户可见）
+@author  weipeng
+ -->
 <% 
 		NewsDao newsdao = new NewsDao();
 		News[] news =new News[newsdao.queryAll().length];
@@ -46,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="zh-ch">
 <head>
-	<title>主页</title>
+	<title>新闻审核界面（对指定用户可见）</title>
 	<script>
 var  highlightcolor='#c1ebff';
 //此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
@@ -99,7 +102,7 @@ for(i=0;i<cs.length;i++){
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
 <body>
 	<div class="header">
-		<div class="img1">&nbsp; 
+		<div class="img1">
 			<img src="static/images/logo.jpg" alt="logo">
 		</div>
 		<div class="button">
@@ -241,7 +244,7 @@ for(i=0;i<cs.length;i++){
 		
 	</div>
 	
-	
+	<br/>
 	
 	<div class="footer" >
 				 <div id="site_nav">

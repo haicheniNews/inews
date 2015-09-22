@@ -4,7 +4,17 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 request.setCharacterEncoding("gbk");
 String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
+
 %>
+<%
+String userid = (String)request.getSession().getAttribute("userId");
+
+
+ %>
+<!-- 
+新闻发布界面 可发布具体内容（视频，图像，文字）
+@author  weipeng
+ -->
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="zh-ch">
@@ -54,11 +64,10 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 		}
 	</script>
 
-	<title>主页</title>
+	<title>新闻发布界面 </title>
 </head>
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
 <body>
-<!-- 测试代码 -->		<a href="news_inspect2.jsp">审核表单</a>
 	<div class="header">
 		<div class="img1"> 
 			<img src="static/images/logo.jpg" alt="logo">
@@ -106,7 +115,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 					<br/>
 		<div id="comment" style="width:966px;height:200px;margin-left:0px;margin-top:20px;margin-bottom:20px;">
 		<textarea id="content1" name="content1" cols="100" rows="8" style="width:966px;height:300px;visibility:hidden;"><%=htmlspecialchars(htmlData)%></textarea>
-		<input type="hidden" name="userid" value="<%=request.getSession().getAttribute("userId") %>">
+		<input type="hidden" name="userid" value="<%=userid %>">
 		<input type="submit" name="button" value="提交内容" /> (提交快捷键: Ctrl + Enter)
 		</div>
 	</form>
@@ -119,9 +128,8 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
         	<input type="submit" value="提交">
         </div>
     </form>
-	<img src="/images/index.jpg"/>
 	
-	<div class="footer" style="margin-top:200px;" >
+	<div class="footer" style="margin-top:2px;" >
 				 <div id="site_nav">
 				    <ul>
 				      <li><a href="/index/service">广告服务</a></li>

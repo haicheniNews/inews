@@ -6,6 +6,10 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 
 %>
+<!-- 
+用户信息界面
+@author  weipeng
+ -->
 <%
 		String userid = (String)request.getSession().getAttribute("userId");
 		DbCRUD db = new DbCRUD();
@@ -45,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'userinfo.jsp' starting page</title>
+    <title>用户信息界面</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">

@@ -6,7 +6,12 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 request.setCharacterEncoding("gbk");
 String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
+
 %>
+<!-- 
+新闻具体类别  界面（例如  军事类的所有新闻）
+@author  weipeng
+ -->
 <%
 		int id = (Integer)request.getAttribute("id");
 		int maxSize = 3;
@@ -69,10 +74,10 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 		}
 	</script>
 
-	<title>主页</title>
+	<title>新闻具体类别界面</title>
 </head>
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
-<body>
+<body> 
 <br><br><!-- 测试代码 -->		<a href="news_inspect2.jsp">审核表单</a>
 	<div class="header">
 		<div class="img1"> 
