@@ -5,8 +5,11 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-
 %>
+<!-- 
+新闻投递状态页面（对特定级别用户可见）
+@author  weipeng
+ -->
 <% 
 		NewsDao newsdao = new NewsDao();
 		News[] news =new News[newsdao.queryAll().length];
@@ -20,34 +23,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 			//实现查询用户级别 产生不同权限
 		String userid = (String)request.getSession().getAttribute("userId");
-		String user[]=	new String[20];		//让不同级别用户对应不同界面显示	0-   1    2    3
+			//让不同级别用户对应不同界面显示	0-   1    2    3
+		int[] user ={2,1,0,0,0,0,-1};
+		//得到roleid
+				System.out.println(userid);
 		DbCRUD db = new DbCRUD();
-		String query = "SELECT roleid FROM role_user where userid=?;";
+		int roleid[] = new int[1];
+		int j;
+		String query = "SELECT * FROM role_user where userid=?;";
 		ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) db.query(query, userid);
-		RoleUser rs = new RoleUser();
+		RoleUser rs[] = new RoleUser[100];
 		int count = 0;
 		for (Map<String, Object> map : data) {
-			Set<String> set = map.keySet();
-			Iterator<String> it = set.iterator();
-			while (it.hasNext()) {
-				String name = (String) it.next();
-				if(name.equals("roleid")){
-					//int in = (map.get(name));
-					//System.out.println(map.get(name));
-				}
-
-				count++;
-			}
+			roleid[0] = (Integer)map.get("roleid");
 
 		}	
+		int tempint = roleid[0];
+		
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="zh-ch">
 <head>
-	<title>主页</title>
+	<title>新闻审核界面（对指定用户可见）</title>
 	<script>
 var  highlightcolor='#c1ebff';
 //此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
@@ -100,7 +102,7 @@ for(i=0;i<cs.length;i++){
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
 <body>
 	<div class="header">
-		<div class="img1">&nbsp; 
+		<div class="img1">
 			<img src="static/images/logo.jpg" alt="logo">
 		</div>
 		<div class="button">
@@ -174,7 +176,7 @@ for(i=0;i<cs.length;i++){
 	          </tr>
 	          
 	          <% for(i = 0; i < news.length; i++){
-	          		if(news[i].getIsPublish() == 0){
+	          		
 	          %>
 	          <tr>
 	            <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
@@ -200,13 +202,13 @@ for(i=0;i<cs.length;i++){
 	            %>
 	            </span></div></td>
 	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">
-	            <%    if(news[i].getIsPublish() == 0){
+	            <%    if(tempint == 0){
 	            			out.print("待审核"); 
-	            	  } else if(news[i].getIsPublish() == 1){
+	            	  } else if(tempint == 1){
 	            	  		out.print("初审");
-	            	  }else if(news[i].getIsPublish() == 2){
+	            	  }else if(tempint == 2){
 	            	  		out.print("复审");
-	            	  }else if(news[i].getIsPublish() == 3){
+	            	  }else if(tempint == 3){
 	            	  		out.print("审核不过");
 	            	  }else {
 	            	  		out.print("null");
@@ -216,7 +218,7 @@ for(i=0;i<cs.length;i++){
 				</span></div></td>
 	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" />&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" />审核操作</span></div></td>
 	          </tr>
-			<%} } %>
+			<%}  %>
 	        </table></td>
 	        <td width="8" background="images/tab_15.gif">&nbsp;</td>
 	      </tr>
@@ -242,7 +244,7 @@ for(i=0;i<cs.length;i++){
 		
 	</div>
 	
-	
+	<br/>
 	
 	<div class="footer" >
 				 <div id="site_nav">

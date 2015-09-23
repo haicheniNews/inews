@@ -16,7 +16,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<img src="static/images/logo.jpg" alt="logo">
 		</div>
 		<div class="button">
+		<%String viewer; 
+					if(request.getSession().getAttribute("userId")==null){viewer="login.jsp";}   //发布新闻的标题
+					else{viewer="press_release.jsp";} %><a href="<%=viewer %>">新闻发布栏目</a>
+		<%String viewer2; 
+					if(request.getSession().getAttribute("userId")==null){viewer2="login.jsp";}   //新闻投递状态（对所有人可见）
+					else{viewer2="news_inspect.jsp";} %><a href="<%=viewer2 %>">新闻投递状态</a>				
+		<%String viewer3; 
+					if(request.getSession().getAttribute("userId")==null){viewer3="login.jsp";}   //新闻审核链接（对指定级别用户可见）
+					else{viewer2="news_inspect2.jsp";} %><a href="<%=viewer2 %>">新闻审核链接</a>					
 		<c:if test="${sessionScope.userId==null}"> 
+		
 			<a href="login.jsp">登陆</a>
 			<a href="register.jsp">注册</a> 
 		</c:if>
@@ -30,12 +40,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="nav">
 		<div class="title fl">
 			<ul>
-				<li><a href="#">首页</a></li>
-				<li><a href="#">热点</a></li>
-				<li><a href="#">军事</a></li>
-				<li><a href="#">娱乐</a></li>
-				<li><a href="#">经济</a></li>
-				<li><a href="#">汽车</a></li>
+			
+				<li><a href="index.jsp">首页</a></li>
+				<li><a href="IndexToQuantityServlet?name=hot">热点</a></li>
+				<li><a href="IndexToQuantityServlet?name=military">军事</a></li>
+				<li><a href="IndexToQuantityServlet?name=amusement">娱乐</a></li>
+				<li><a href="IndexToQuantityServlet?name=economic">经济</a></li>
+				<li><a href="IndexToQuantityServlet?name=car">汽车</a></li>
 			</ul>
 		</div>	
 
@@ -57,10 +68,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="news">
 				<div class="title"><span>热点新闻 </span><a href="">查看更多</a> </div>
 				<ul>
-					<li><%String viewer; 
-					if(request.getSession().getAttribute("userId")==null){viewer="login.jsp";}
-					else{viewer="press_release.jsp";} %><a href="<%=viewer %>">新闻发布栏目</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
+					<li>热点新闻 </li>
+	<!-- 圈弟，这是具体实例  name=1代表传参数name，值为1被传到IndexToBrowseServlet。 标题需要从数据库里面取-->
+				<li><a href="IndexToBrowseServlet?name=1">这里是一条新闻</a></li>
 					<li><a href="#">这里是一条新闻</a></li>
 					<li><a href="#">这里是一条新闻</a></li>
 					<li><a href="#">这里是一条新闻</a></li>
@@ -143,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		</div>
 		
-		<div class="mright fr">
+		<div class="mright fr" style="margin-top: 10px;">
 			<div class="list">
 				<div class="title"><span>头条</span> <a href="">查看更多</a> </div>
 				<ul>
@@ -153,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a href="#">这里是一条新闻</a></li>
 					<li><a href="#">这里是一条新闻</a></li>
 				</ul>
-			</div>
+				</div>
 			<div class="clear"></div>
 			<div class="list">
 				<div class="title"><span>排行版</span> <a href="">查看更多</a> </div>
@@ -166,16 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</ul>
 			</div>
 			<div class="clear"></div>
-			<div class="list">
-				<div class="title"><span>排行版</span> <a href="">查看更多</a> </div>
-				<ul>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-				</ul>
-			</div>
+	
 			
 		</div>
 		
@@ -184,7 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="clear"></div>
 	
 	
-	
+	<br/>
 
 	
 	

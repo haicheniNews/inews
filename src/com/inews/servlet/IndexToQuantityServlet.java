@@ -8,19 +8,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SubmitTempServlet extends HttpServlet {
+public class IndexToQuantityServlet extends HttpServlet {
 
-	/**
-	 * SubmitServlet的后面的跳转servlet，后面再跳转到新闻审核界面（显示所有状态信息）
-	 * @author weipeng
-	 */
+/**
+ * 从首页到具体类别的展示界面，例如点击热点，进入 热点 新闻展示界面
+ * @author weipeng
+ */
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/html;charset=gbk");
-		request.setCharacterEncoding("GBK");
-        request.getRequestDispatcher("/news_inspect.jsp").forward(request, response);
+		response.setContentType("text/html;charset=utf-8");
+		request.setCharacterEncoding("utf-8");
+		PrintWriter out = response.getWriter();
+		String name = request.getParameter("name");
 		
+		System.out.println(name);
+		int id;
+		if(name.equals("hot")){
+			id = 0;
+		}else if(name.equals("military")){
+			id = 1;			
+		}else if(name.equals("amusement")){
+			id = 2;		
+		}else if(name.equals("economic")){
+			id = 3;			
+		}else{
+			id = 4;				
+		}    
+		System.out.println(id);
+		request.setAttribute("id", id);
+		request.getRequestDispatcher("/news_quantity.jsp").forward(request, response);	
 	}
 
 	/**

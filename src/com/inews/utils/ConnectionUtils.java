@@ -1,7 +1,11 @@
 package com.inews.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+/**
+ * 匹配原始方法的另一个数据库连接包
+ * @author weipeng
+ *
+ */
 public class ConnectionUtils {
     //当该类被加载到内中立即执行，而且只执行一次
 	public static Connection getConnection()

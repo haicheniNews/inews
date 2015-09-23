@@ -21,14 +21,8 @@ import com.inews.utils.DbCRUD;
 public class SubmitServlet extends HttpServlet {
 
 	/**
-	 * The doGet method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
+	 * 在新闻发布界面   提交数据（包括内容和类别）到后台，后跳转到中间servlet（防止刷新）
+	 * @author weipeng
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -75,7 +69,7 @@ public class SubmitServlet extends HttpServlet {
 		Date dt = new Date();//获取当前时间
 		SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日HH时mm分");
 		String date =format.format(dt);
-		
+		//将发布的新闻内容插入数据库
 		DbCRUD db = new DbCRUD();
 		String sql="insert into news(newstitle,newsbody,newsdate,userid,newsimage,newsvideo,typeid,ispublish) values(?,?,?,?,?,?,?,?)";	
 		int result=(Integer) db.update(sql,title,content,date,userid,"6","7",varity[0],"0");

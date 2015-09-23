@@ -14,14 +14,8 @@ import com.inews.utils.DbUtils;
 public class UserInfoServlet extends HttpServlet {
 
 	/**
-	 * The doGet method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
+	 * 用户信息修改表，改完跳回原界面
+	 * @author weipeng
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -38,7 +32,7 @@ public class UserInfoServlet extends HttpServlet {
 		String id = (String)request.getSession().getAttribute("userId");
 		System.out.println("iddddddddddddddddddddd:"+id);		
 		System.out.println("country         :"+country);
-		
+		//将用户信息更新到数据库
 		DbCRUD db = new DbCRUD();
 		String update = "UPDATE user_info SET username=?,useraddress=?,userphone=?,usercountry=? WHERE userid=?;";
 		db.update(update,name,address,phone,country, id);

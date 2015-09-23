@@ -10,6 +10,11 @@ import java.util.Arrays;
 import com.inews.entity.News;
 import com.inews.utils.ConnectionUtils;
 
+/**
+ * 利用基本方法构造dao类
+ * @author weipeng
+ *
+ */
 
 public class NewsDao {
 	public News[] queryAll()

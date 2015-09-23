@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@page import="com.inews.entity.*"%>
+<%@page import="com.inews.utils.DbCRUD"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -6,15 +8,23 @@ request.setCharacterEncoding("gbk");
 String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
 
 %>
-<%
-String userid = (String)request.getSession().getAttribute("userId");
-
-
- %>
 <!-- 
-新闻发布界面 可发布具体内容（视频，图像，文字）
+新闻具体类别  界面（例如  军事类的所有新闻）
 @author  weipeng
  -->
+<%
+		int id = (Integer)request.getAttribute("id");
+		int maxSize = 3;
+		DbCRUD db = new DbCRUD();
+		String query = "SELECT * FROM news where typeid=?;";
+		ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) db.query(query, id);
+		out.print("data.size():"+data.size());
+		News news[] = new News[1];
+		int i = 0;
+		//int[] da = new int[2];
+		System.out.println("11111111111111111111");
+
+ %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="zh-ch">
@@ -64,10 +74,11 @@ String userid = (String)request.getSession().getAttribute("userId");
 		}
 	</script>
 
-	<title>新闻发布界面 </title>
+	<title>新闻具体类别界面</title>
 </head>
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
-<body>
+<body> 
+<br><br><!-- 测试代码 -->		<a href="news_inspect2.jsp">审核表单</a>
 	<div class="header">
 		<div class="img1"> 
 			<img src="static/images/logo.jpg" alt="logo">
@@ -103,33 +114,25 @@ String userid = (String)request.getSession().getAttribute("userId");
 	</div>
 	
 	<%=htmlData%>
-	<form method="post"  action="SubmitServlet" onsubmit="return validate(event)">
-		<br/>请输入标题：
-		<input name="title" type="text" style="width:300px;height:30px;"/>
-						&nbsp;&nbsp;&nbsp;&nbsp;请选择类别（只能选择一个）：				
-		<input type="radio" value="热点" name="checkbox" />热点
-		<input type="radio" value="军事"  name="checkbox" />军事   
-		<input type="radio" value="娱乐"  name="checkbox"/>娱乐
-		<input type="radio" value="经济"  name="checkbox" />经济
-		<input type="radio" value="汽车"  name="checkbox"/>汽车			
-					<br/>
-		<div id="comment" style="width:966px;height:200px;margin-left:0px;margin-top:20px;margin-bottom:20px;">
-		<textarea id="content1" name="content1" cols="100" rows="8" style="width:966px;height:300px;visibility:hidden;"><%=htmlspecialchars(htmlData)%></textarea>
-		<input type="hidden" name="userid" value="<%=userid %>">
-		<input type="submit" name="button" value="提交内容" /> (提交快捷键: Ctrl + Enter)
-		</div>
-	</form>
-<br/>
-    <form action="UploadHandleServlet" enctype="multipart/form-data" method="post"> 
-    	<div style="margin-top:150px;margin-left:100px;width:500px;height:300px" align="right">
-        	上传用户：<input type="text" name="username"><br/>
-        	上传图片：<input type="file" name="file1"><br/>
-        	上传flash：<input type="file" name="file2"><br/>
-        	<input type="submit" value="提交">
-        </div>
-    </form>
+	<div style="margin-bottom: 20px;width:1000px;float:left;">
+  		<%	for(int j=0;j < data.size();j++){
+  			Map<String ,Object>  map=data.get(j);
+		%>			
+			<form action="QuanToBrowServlet" method="post">
+				<div style="width: 200px;height: 328px;border: 1px solid red;float:left;margin-top: 20px;margin-left:30px;">
+				<input type="image"   width="200px" height="200px"  style="float:left;"/>	 
+				<span style="width: 200px;height: 128px;float:left;\">
+				<font size="4px" color="#F75000">照片</font><br/>
+				<font size="2px" color="red">主题 <%=map.get("newstitle") %></font> <br/>
+				<font size="2px" color="#F75000">时间<%=map.get("newsdate") %></font> <br/>
+				<font size="2px" color="grey">来源作者<%=map.get("userid") %></font></span></div>
+				<input type="hidden" name="nid" value="<%= map.get("newsid") %>">			
+			</form> 
+  		<%} 
+		%>
+	</div>
 	
-	<div class="footer" style="margin-top:2px;" >
+	<div class="footer" style="margin-top:200px;" >
 				 <div id="site_nav">
 				    <ul>
 				      <li><a href="/index/service">广告服务</a></li>

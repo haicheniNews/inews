@@ -8,19 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SubmitTempServlet extends HttpServlet {
+public class IndexToBrowseServlet extends HttpServlet {
 
 	/**
-	 * SubmitServlet的后面的跳转servlet，后面再跳转到新闻审核界面（显示所有状态信息）
+	 * 从主页到某一新闻详情页  处理信息跳转
 	 * @author weipeng
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/html;charset=gbk");
-		request.setCharacterEncoding("GBK");
-        request.getRequestDispatcher("/news_inspect.jsp").forward(request, response);
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
 		
+		String name = (String)request.getParameter("name");
+		request.setAttribute("nid", name);
+		request.getRequestDispatcher("/news_browse.jsp").forward(request, response);
 	}
 
 	/**
@@ -36,7 +38,7 @@ public class SubmitTempServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		doGet(request, response);
+		this.doGet(request, response);
 	}
 
 }
