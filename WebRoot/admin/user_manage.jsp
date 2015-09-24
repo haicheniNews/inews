@@ -3,6 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -78,132 +79,106 @@ for(i=0;i<cs.length;i++){
 
 </head>
 <body>
- 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td height="30" background="images/tab_05.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td width="12" height="30"><img src="images/tab_03.gif" width="12" height="30" /></td>
-        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="5%"><div align="center"><img src="images/tb.gif" width="16" height="16" /></div></td>
-                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[业务中心]-[我的邮件]</td>
-              </tr>
-            </table></td>
-            <td width="54%"><table border="0" align="right" cellpadding="0" cellspacing="0">
-              <tr>
-                <td width="60"><table width="87%" border="0" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td class="STYLE1"><div align="center">
-                      <input type="checkbox" name="checkbox62" value="checkbox" />
-                    </div></td>
-                    <td class="STYLE1"><div align="center">全选</div></td>
-                  </tr>
-                </table></td>
-                <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td class="STYLE1"><div align="center"><img src="images/22.gif" width="14" height="14" /></div></td>
-                    <td class="STYLE1"><div align="center">新增</div></td>
-                  </tr>
-                </table></td>
-                <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td class="STYLE1"><div align="center"><img src="images/33.gif" width="14" height="14" /></div></td>
-                    <td class="STYLE1"><div align="center">修改</div></td>
-                  </tr>
-                </table></td>
-                <td width="52"><table width="88%" border="0" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td class="STYLE1"><div align="center"><img src="images/11.gif" width="14" height="14" /></div></td>
-                    <td class="STYLE1"><div align="center">删除</div></td>
-                  </tr>
-                </table></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-        <td width="16"><img src="images/tab_07.gif" width="16" height="30" /></td>
-      </tr>
-    </table></td>
-  </tr>
-  <tr>
-    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td width="8" background="images/tab_12.gif">&nbsp;</td>
-        <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
-          <tr>
-            <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center">
-              <input type="checkbox" name="checkbox" value="checkbox" />
-            </div></td>
-            <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">用户id</span></div></td>
-            <td width="8%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">用户名</span></div></td>
-            <td width="8%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">用户性别</span></div></td>
-             <td width="14%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">联系地址</span></div></td>
-              <td width="8%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">年龄</span></div></td>
-            <td width="18%" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">邮件地址</span></div></td>
-            <td width="10%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">生日</span></div></td>
-            <td width="10%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">联系电话</span></div></td>
-            <td width="10%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">国籍</span></div></td>
-            <td width="10%" height="22" background="images/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">基本操作</div></td>
-          </tr>
-        
-       <%
-       		for(int i = 0; i <= 5; i++){
-        %>   
-          <tr>
-            <td height="20" bgcolor="#FFFFFF"><div align="center">
-              <input type="checkbox" name="checkbox2" value="checkbox" />
-            </div></td>
-            <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <div align="center">1000</div>                         <!-- 序号 -->
-            </div></td>
-            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">13813916585</span></div></td>
-            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">2007-11-16 15:00:20 </span></div></td>
-             <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">1</span></div></td>
-            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">2</span></div></td>
-             <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">3</span></div></td>
-            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">tiezhu0902@163.com</span></div></td>
-            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">南京科技股份有限公司…</span></div></td>
-             <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">5</span></div></td>
-            
-            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" />编辑&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" />删除</span></div></td>
-          </tr>
-
-       <%
-       		}
-        %> 
-        </table></td>
-        <td width="8" background="images/tab_15.gif">&nbsp;</td>
-      </tr>
-    </table></td>
-  </tr>
-  <tr>
-    <td height="35" background="images/tab_19.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td width="12" height="35"><img src="images/tab_18.gif" width="12" height="35" /></td>
-        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="STYLE4">&nbsp;&nbsp;共有 120 条记录，当前第 1/10 页</td>
-            <td><table border="0" align="right" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td width="40"><img src="images/first.gif" width="37" height="15" /></td>
-                  <td width="45"><img src="images/back.gif" width="43" height="15" /></td>
-                  <td width="45"><img src="images/next.gif" width="43" height="15" /></td>
-                  <td width="40"><img src="images/last.gif" width="37" height="15" /></td>
-                  <td width="100"><div align="center"><span class="STYLE1">转到第
-                    <input name="textfield" type="text" size="4" style="height:12px; width:20px; border:1px solid #999999;" /> 
-                    页 </span></div></td>
-                  <td width="40"><img src="images/go.gif" width="37" height="15" /></td>
-                </tr>
-            </table></td>
-          </tr>
-        </table></td>
-        <td width="16"><img src="images/tab_20.gif" width="16" height="35" /></td>
-      </tr>
-    </table></td>
-  </tr>
-</table>
+ 	<div class="up" style="margin:50px 0px 50px 0px;">
+	</div>
+	
+	<div>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		  <tr>
+		    <td height="30" background="images/tab_05.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+		      <tr>
+		        <td width="12" height="30"><img src="images/tab_03.gif" width="12" height="30" /></td>
+		        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+		          <tr>
+		            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+		              <tr>
+		                <td width="5%"><div align="center"><img src="images/tb.gif" width="16" height="16" /></div></td>
+		                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[用户角色管理]</td>
+		              </tr>
+		            </table></td>
+		            <td width="54%"><table border="0" align="right" cellpadding="0" cellspacing="0">
+		              <tr>
+		                <td width="60"><table width="87%" border="0" cellpadding="0" cellspacing="0">
+		                  <tr>
+		                    <!--<td class="STYLE1"><div align="center">
+		                      <input type="checkbox" name="checkbox62" value="checkbox" />
+		                    </div></td>
+		                      <td class="STYLE1"><div align="center">全选</div></td>-->
+		                  </tr>
+		                </table></td>
+		                <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
+		                  
+		                </table></td>
+		                <td width="52"><table width="88%" border="0" cellpadding="0" cellspacing="0">
+		                  
+		                </table></td>
+		              </tr>
+		            </table></td>
+		          </tr>
+		        </table></td>
+		        <td width="16"><img src="images/tab_07.gif" width="16" height="30" /></td>
+		      </tr>
+		    </table></td>
+		  </tr>
+		  <tr>
+		    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+		      <tr>
+		        <td width="8" background="images/tab_12.gif">&nbsp;</td>
+		        <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
+		          <tr>
+		            <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center">
+		              <input type="checkbox" name="checkbox" value="checkbox" />
+		            </div></td>
+		            <td width="12%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">用户id</span></div></td>
+		            <td width="14%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">用户名</span></div></td>
+		            <td width="15%" height="22" background="images/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">基本操作</div></td>
+		          </tr>
+		          
+		          
+		          
+		          <c:forEach items="${user_data}" var="user_info" end="${end-1}">
+			           <tr>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center">
+			              <input type="checkbox" name="checkbox2" value="checkbox" />
+			            </div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${user_info.userid}</span></div></td>
+			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${user_info.username }</span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" /><a href="<%=basePath %>admin/user_update.jsp?user_Id=${user_info.userid  }">分配角色</a>&nbsp; &nbsp;</span></div></td>
+			          </tr>
+		          </c:forEach>
+		
+		
+		        </table></td>
+		        <td width="8" background="images/tab_15.gif">&nbsp;</td>
+		      </tr>
+		    </table></td>
+		  </tr>
+		  <tr>
+		    <td height="35" background="images/tab_19.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+		      <tr>
+		        <td width="12" height="35"><img src="images/tab_18.gif" width="12" height="35" /></td>
+		        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+		          <tr>
+		            <td class="STYLE4">&nbsp;&nbsp; &nbsp;&nbsp;</td>
+		            <td><table border="0" align="right" cellpadding="0" cellspacing="0">
+		                <tr>
+		                  <td width="40"><a href="<%=basePath%>UserRoleQueryServlet?start=0&end=${end}"><img src="images/first.gif" width="37" height="15" /></a></td>
+		                  <td width="45"><a href="<%=basePath%>UserRoleQueryServlet?start=${start-end}&end=${end}"><img src="images/back.gif" width="43" height="15" /></a></td>
+		                  <td width="45"><a href="<%=basePath%>UserRoleQueryServlet?start=${start+end}&end=${end}"><img src="images/next.gif" width="43" height="15" /></a></td>
+		                  <td width="40"><a href="<%=basePath%>userRoleQueryServlet?start=${max_record-end}&end=${end}"><img src="images/last.gif" width="37" height="15" /></a></td>
+		                  <td width="100"><div align="center"><span class="STYLE1">转到第
+		                    <input name="textfield" id="jump" onkeyup="changePath()" type="text" size="4" style="height:16px; width:20px; border:1px solid #999999;" value="${sessionScope.textFiled }"/> 
+		                    页 </span></div></td>
+		                  <td width="40"><a id="jumpto" href="<%=basePath%>RoleQueryServlet?end=${end}&start="><img src="images/go.gif" width="37" height="15" /></a></td>
+		                </tr>
+		            </table></td>
+		          </tr>
+		        </table></td>
+		        <td width="16"><img src="images/tab_20.gif" width="16" height="35" /></td>
+		      </tr>
+		    </table></td>
+		  </tr>
+		</table>
+	</div>
 </body>
 </html>

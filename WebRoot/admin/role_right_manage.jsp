@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>菜单查询显示</title>
+<title>权限查询显示</title>
 <style type="text/css">
 <!--
 body {

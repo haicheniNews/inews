@@ -101,6 +101,12 @@
     <servlet-name>AddRoleServlet</servlet-name>
     <servlet-class>com.inews.servlet.AddRoleServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<description>给用户增加角色</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UserRoleUpdateServlet</servlet-name>
+    <servlet-class>com.inews.servlet.UserRoleUpdateServlet</servlet-class>
+  </servlet>
 
 
 
@@ -139,6 +145,11 @@
   <servlet-mapping>
     <servlet-name>AddRoleServlet</servlet-name>
     <url-pattern>/AddRoleServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>UserRoleUpdateServlet</servlet-name>
+    <url-pattern>/UserRoleUpdateServlet</url-pattern>
   </servlet-mapping>
 
 
@@ -200,6 +211,16 @@
 		<url-pattern>/admin/update_menu.jsp</url-pattern>
 	</filter-mapping>
 	
+	<filter>
+		<description>更新用户角色的filter</description>
+		<filter-name>UserUpdataFilter</filter-name>
+		<filter-class>com.inews.filter.UserUpdateFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UserUpdataFilter</filter-name>
+		<url-pattern>/admin/user_update.jsp</url-pattern>
+	</filter-mapping>
+	
 	
 	<filter>
 		<description>判断用户请求的url是否有权限访问的filter</description>
@@ -234,6 +255,18 @@
 		<filter-name>RoleUpdateFilter</filter-name>
 		<url-pattern>/admin/role_update.jsp</url-pattern>
 	</filter-mapping>
+	
+	<filter>
+		<description>用户权限分配filter</description>
+		<filter-name>UserManagerFilter</filter-name>
+		<filter-class>com.inews.filter.UserManagerFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UserManagerFilter</filter-name>
+		<url-pattern>/admin/user_manage.jsp</url-pattern>
+	</filter-mapping>
+
+
 
 
 <servlet>
@@ -319,6 +352,13 @@
     <servlet-name>RoleMenuUpdateServlet</servlet-name>
     <servlet-class>com.inews.servlet.RoleMenuUpdateServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>查询用户-角色</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UserRoleQueryServlet</servlet-name>
+    <servlet-class>com.inews.servlet.UserRoleQueryServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -363,6 +403,10 @@
   <servlet-mapping>
     <servlet-name>RoleMenuUpdateServlet</servlet-name>
     <url-pattern>/RoleMenuUpdateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserRoleQueryServlet</servlet-name>
+    <url-pattern>/UserRoleQueryServlet</url-pattern>
   </servlet-mapping>
 
 	<welcome-file-list>

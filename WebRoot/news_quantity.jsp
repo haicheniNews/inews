@@ -18,7 +18,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 		DbCRUD db = new DbCRUD();
 		String query = "SELECT * FROM news where typeid=?;";
 		ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) db.query(query, id);
-		out.print("data.size():"+data.size());
+out.print("data.size():"+data.size());
 		News news[] = new News[1];
 		int i = 0;
 		//int[] da = new int[2];

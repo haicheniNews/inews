@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>角色更新</title>
+    <title>用户角色更新</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   
-  <form action="RoleMenuUpdateServlet?status=0" method="post">
+  <form action="UserRoleUpdateServlet?status=0" method="post">
 	<div>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		  <tr>
@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
 		              <tr>
 		                <td width="5%"><div align="center"><img src="images/tb.gif" width="16" height="16" /></div></td>
-		                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：已分配的权限</td>
+		                <td width="95%" class="STYLE1"><span class="STYLE3">${user_Id }</span>：已分配的角色</td>
 		              </tr>
 		            </table></td>
 		            <td width="54%"><table border="0" align="right" cellpadding="0" cellspacing="0">
@@ -86,21 +86,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center">
 		              <input type="checkbox" name="checkbox" value="checkbox" />
 		            </div></td>
-		            <td width="12%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">权限名</span></div></td>
-		            <td width="14%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">权限值</span></div></td>
-		            <td width="18%" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">权限等级</span></div></td>
+		            <td width="12%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">角色等级</span></div></td>
+		            <td width="14%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">角色值</span></div></td>
 		          </tr>
 		          
-		          <input type="hidden" value="${role_id }" name="roleId"/>
-		          
-		          <c:forEach items="${roleUpdateData}" var="role_data">
+		          <input type="hidden" value="${user_Id }" name="user_Id"/>
+		          <c:forEach items="${userUpdateData}" var="role_data">
 			           <tr>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center">
-			              <input type="checkbox" name="checkbox2" value="${role_data.menuid }" />
+			              <input type="checkbox" name="checkbox2" value="${role_data.roleid }" />
 			            </div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data.menuname }</span></div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data.menuvalue } </span></div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data.menulevel }</span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data.roleid }</span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data.rolename } </span></div></td>
 			          </tr>
 		          </c:forEach>
 		
@@ -131,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	
-	<form action="RoleMenuUpdateServlet?status=1" method="post">
+	<form action="UserRoleUpdateServlet?status=1" method="post">
 	<div>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		  <tr>
@@ -143,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
 		              <tr>
 		                <td width="5%"><div align="center"><img src="images/tb.gif" width="16" height="16" /></div></td>
-		                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：未分配的权限</td>
+		                <td width="95%" class="STYLE1"><span class="STYLE3">${user_Id }</span>：未分配的角色</td>
 		              </tr>
 		            </table></td>
 		            <td width="54%"><table border="0" align="right" cellpadding="0" cellspacing="0">
@@ -183,23 +180,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center">
 		              <input type="checkbox" name="checkbox" value="checkbox3" />
 		            </div></td>
-		         <!--    <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">权限编号</span></div></td> -->
-		            <td width="12%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">权限名</span></div></td>
-		            <td width="14%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">权限值</span></div></td>
-		            <td width="18%" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">权限等级</span></div></td>
+		            <td width="12%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">角色等级</span></div></td>
+		            <td width="14%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">角色值</span></div></td>
 		          </tr>
 		          
-		          
-			 <input type="hidden" value="${role_id }" name="roleId"/>
+		        <input type="hidden" value="${user_Id }" name="user_Id"/>   
 			 		          
-		          <c:forEach items="${roleUpdateData2}" var="role_data2">
+		          <c:forEach items="${userUpdateData2}" var="role_data2">
 			           <tr>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center">
-			              <input type="checkbox" name="checkbox4" value="${role_data2.menuid }" />
+			              <input type="checkbox" name="checkbox4" value="${role_data2.roleid }" />
 			            </div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data2.menuname }</span></div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data2.menuvalue } </span></div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data2.menulevel }</span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data2.roleid }</span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data2.rolename } </span></div></td>
 			          </tr>
 		          </c:forEach>
 		
