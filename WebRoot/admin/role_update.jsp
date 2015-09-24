@@ -37,6 +37,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  
+  <form action="RoleMenuUpdateServlet?status=0" method="post">
 	<div>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		  <tr>
@@ -48,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
 		              <tr>
 		                <td width="5%"><div align="center"><img src="images/tb.gif" width="16" height="16" /></div></td>
-		                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[未分配权限]</td>
+		                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：已分配的权限</td>
 		              </tr>
 		            </table></td>
 		            <td width="54%"><table border="0" align="right" cellpadding="0" cellspacing="0">
@@ -59,8 +61,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                </table></td>
 		                <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
 		                  <tr>
-		                    <td class="STYLE1"><div align="center"><img src="images/22.gif" width="14" height="14" /></div></td>
-		                    <td class="STYLE1"><div align="center"><a href="<%=basePath %>admin/add_menu.jsp">添加</a></div></td>
+		                    <td class="STYLE1"><div align="center"><img src="images/11.gif" width="14" height="14" /></div></td>
+		                    <td class="STYLE1"><div align="center"><input type="submit" value="删除"/></div></td>
 		                  </tr>
 		                </table></td>
 		                <td width="52"><table width="88%" border="0" cellpadding="0" cellspacing="0">
@@ -84,24 +86,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center">
 		              <input type="checkbox" name="checkbox" value="checkbox" />
 		            </div></td>
-		         <!--    <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单编号</span></div></td> -->
 		            <td width="12%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单名</span></div></td>
 		            <td width="14%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单值</span></div></td>
 		            <td width="18%" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单等级</span></div></td>
-		            <td width="23%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">父菜单名称</span></div></td>
 		          </tr>
 		          
+		          <input type="hidden" value="${role_id }" name="roleId"/>
 		          
-		          
-		          <c:forEach items="${menu_list}" var="menu_map">
+		          <c:forEach items="${roleUpdateData}" var="role_data">
 			           <tr>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center">
-			              <input type="checkbox" name="checkbox2" value="checkbox" />
+			              <input type="checkbox" name="checkbox2" value="${role_data.menuid }" />
 			            </div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menuname }</span></div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menuvalue } </span></div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menulevel }</span></div></td>
-			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.fathername }</span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data.menuname }</span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data.menuvalue } </span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data.menulevel }</span></div></td>
 			          </tr>
 		          </c:forEach>
 		
@@ -128,11 +127,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  </tr>
 		</table>
 	</div>
+	</form>
 	
 	
 	
-	
-	
+	<form action="RoleMenuUpdateServlet?status=1" method="post">
 	<div>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		  <tr>
@@ -144,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
 		              <tr>
 		                <td width="5%"><div align="center"><img src="images/tb.gif" width="16" height="16" /></div></td>
-		                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[已有权限]</td>
+		                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：未分配的权限</td>
 		              </tr>
 		            </table></td>
 		            <td width="54%"><table border="0" align="right" cellpadding="0" cellspacing="0">
@@ -159,13 +158,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                </table></td>
 		                <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
 		                  <tr>
-		                    <td class="STYLE1"><div align="center"><img src="images/11.gif" width="14" height="14" /></div></td>
-		                    <td class="STYLE1"><div align="center">删除</div></td>
+		                    <td class="STYLE1"><div align="center"><img src="images/22.gif" width="14" height="14" /></div></td>
+		                    <td class="STYLE1"><div align="center"><input type="submit" value="增加"/></div></td>
 		                  </tr>
 		                </table></td>
 		                <td width="52"><table width="88%" border="0" cellpadding="0" cellspacing="0">
 		                  <tr>
-		                   
 		                  </tr>
 		                </table></td>
 		              </tr>
@@ -183,26 +181,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6" onmouseover="changeto()"  onmouseout="changeback()">
 		          <tr>
 		            <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center">
-		              <input type="checkbox" name="checkbox" value="checkbox" />
+		              <input type="checkbox" name="checkbox" value="checkbox3" />
 		            </div></td>
 		         <!--    <td width="3%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单编号</span></div></td> -->
 		            <td width="12%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单名</span></div></td>
 		            <td width="14%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单值</span></div></td>
 		            <td width="18%" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">菜单等级</span></div></td>
-		            <td width="23%" height="22" background="images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">父菜单名称</span></div></td>
 		          </tr>
 		          
 		          
-		          
-		          <c:forEach items="${menu_list}" var="menu_map">
+			 <input type="hidden" value="${role_id }" name="roleId"/>
+			 		          
+		          <c:forEach items="${roleUpdateData2}" var="role_data2">
 			           <tr>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center">
-			              <input type="checkbox" name="checkbox2" value="checkbox" />
+			              <input type="checkbox" name="checkbox4" value="${role_data2.menuid }" />
 			            </div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menuname }</span></div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menuvalue } </span></div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.menulevel }</span></div></td>
-			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${menu_map.fathername }</span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data2.menuname }</span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data2.menuvalue } </span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${role_data2.menulevel }</span></div></td>
 			          </tr>
 		          </c:forEach>
 		
@@ -229,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  </tr>
 		</table>
 	</div>
-	
+	</form>
 	
   </body>
   
