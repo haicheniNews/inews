@@ -153,6 +153,15 @@
   </servlet-mapping>
 
 
+	<filter>
+		<description>判断用户请求的url是否有权限访问的filter</description>
+		<filter-name>URLFilter</filter-name>
+		<filter-class>com.inews.filter.URLFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>URLFilter</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
 
 	<filter>
 		<filter-name>NodeFilter</filter-name>
@@ -222,19 +231,7 @@
 	</filter-mapping>
 	
 	
-	<filter>
-		<description>判断用户请求的url是否有权限访问的filter</description>
-		<filter-name>URLFilter</filter-name>
-		<filter-class>com.inews.filter.URLFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>URLFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>URLFilter</filter-name>
-		<url-pattern>*.html</url-pattern>
-	</filter-mapping>
+
 	
 	<filter>
 		<description>用户第一次访问角色管理时初始化filter</description>

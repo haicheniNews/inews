@@ -1,4 +1,4 @@
-#Tue Sep 22 09:57:56 CST 2015
+#Fri Sep 25 15:33:04 CST 2015
 eclipse.preferences.version=1
 encoding//WebRoot/detail.jsp=UTF-8
 encoding//WebRoot/login.jsp=UTF-8
@@ -11,5 +11,5 @@ encoding//src/com/inews/impl=gbk
 encoding//src/com/inews/jdbcdao=gbk
 encoding//src/com/inews/servlet/NodeSearchServlet.java=UTF-8
 encoding//src/com/inews/utils=gbk
-encoding//src/log4j.properties=gbk
+encoding//src/log4j.properties=utf-8
 encoding/<project>=UTF-8

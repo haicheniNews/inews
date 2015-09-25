@@ -23,7 +23,8 @@ public class UserManagerFilter implements Filter {
 
 	public void doFilter(ServletRequest arg0, ServletResponse arg1,
 			FilterChain arg2) throws IOException, ServletException {
-		String sql="SELECT * FROM  user_info a LEFT JOIN role_user b ON a.userid=b.userid;";
+		String sql="SELECT * FROM  user_info a";
+		// LEFT JOIN role_user b ON a.userid=b.userid;	
 		DbCRUD dc =new DbCRUD();
 		
 		ArrayList<Map<String,Object>> data=(ArrayList<Map<String,Object>>)dc.query(sql, null);

@@ -56,12 +56,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   		url:"<%=basePath%>UserRightJudgeServlet?menu_id="+treeNode.id,
 			   		success:function(result){
 				   		//alert("result="+result);
-				   		if(result!=1||result!='1'||result==null){
+				   		if(result==null||result==""){
 							    treeNode.url="no_right.jsp";
 							    console.log("更改后url:"+treeNode.url);
 							  	zTree.updateNode(treeNode);		  	
-					   		}
-				   		}
+					   	}else{
+							
+				   				treeNode.url=result;
+					   			console.log("查到的url:"+treeNode.url);
+							  	zTree.updateNode(treeNode);	
+					   	}
+				   	}
 			   });
 		  	//alert("aaa"+treeNode.url);
 		};

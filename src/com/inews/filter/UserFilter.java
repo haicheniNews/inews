@@ -47,6 +47,7 @@ public class UserFilter implements Filter {
 		if(list.size()<=1){
 			//普通用户
 			((HttpServletResponse)response).sendRedirect("../index.jsp");
+			//request.getRequestDispatcher("../index.jsp").forward(request, response);
 		}else{
 			//后台管理用户
 			//System.out.println("后台管理用户放行.");

@@ -1,6 +1,8 @@
 package com.inews.filter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,6 +13,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.inews.utils.DbCRUD;
 
 public class URLFilter implements Filter {
 
@@ -26,18 +30,26 @@ public class URLFilter implements Filter {
 		HttpSession session=req.getSession();
 		String userId=(String) session.getAttribute("userId");
 		String url=req.getRequestURI();
-		
-		
-		//String sql="SELECT * FROM menu a,role_menu b,role_user c WHERE a.menuid=b.menuid AND a.menuvalue=? AND b.roleid=c.roleid AND c.userid=?";
-		//dc.query(sql,url,userid);
-		System.out.println("url:"+url);//获取项目的/iNews/index.jsp
+		DbCRUD dc = new DbCRUD();
 		String[] urls=url.split("/");
-		/*System.out.println(urls.length);
-		for(int i=0;i<urls.length;i++){
-			System.out.println(urls[i]);
+		
+		String sql="SELECT menuvalue FROM menu WHERE menuid IN (SELECT menuid FROM role_menu WHERE roleid IN (SELECT roleid FROM role_user WHERE userid=?)) AND menuvalue=?;";
+		ArrayList<Map<String,Object>> data =(ArrayList<Map<String,Object>>)dc.query(sql,userId,urls[urls.length-1]);
+		System.out.println("url:"+url+" data.size():"+data.size());//获取项目的/iNews/index.jsp
+		
+/*		if(urls[urls.length-1].contains("left.jsp")||urls[urls.length-1].contains("index.html")){
+			chain.doFilter(request, response);
 		}*/
-		System.out.println(urls[urls.length-1]);
+		
+//		if(data.size()<=0&&!urls[urls.length-1].contains("no_right")){
+//			((HttpServletResponse)response).sendRedirect("../no_right.jsp");
+//		}else{
+//			chain.doFilter(request, response);
+//		}
 		chain.doFilter(request, response);
+		
+		
+		
 		
 	}
 

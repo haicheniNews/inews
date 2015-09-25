@@ -62,12 +62,14 @@ public class UserRightJudgeServlet extends HttpServlet {
 		String sql="SELECT menuvalue FROM menu a,role_menu b,role_user c WHERE a.menuid=b.menuid AND a.menuid=? AND b.roleid=c.roleid AND c.userid=?;";
 		List<Map<String,Object>> list=(List<Map<String, Object>>) dbCrud.query(sql,menu_id,userId);
 		dbCrud.releaseConn();
-	//	System.out.println(menu_id+" : "+userId+"    ...........ok");
 	  System.out.println("list.size():"+list.size());
+	  Map<String,Object> map;
 		if(list.size()<=0){
-			out.write("0");
+			out.write("");
 		}else{
-			out.write("1");
+			map=list.get(0);
+			System.out.println("map.get()"+(String)map.get("menuvalue"));
+			out.write((String)map.get("menuvalue"));
 		}
 		out.close();
 	}
