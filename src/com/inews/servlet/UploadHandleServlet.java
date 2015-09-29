@@ -89,7 +89,7 @@ public class UploadHandleServlet extends HttpServlet {
                     
                 }
                 request.setAttribute("message",message);
-                request.getRequestDispatcher("/press_release.jsp").forward(request, response);
+               // request.getRequestDispatcher("/message.jsp").forward(request, response);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)

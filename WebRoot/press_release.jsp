@@ -103,7 +103,7 @@ String userid = (String)request.getSession().getAttribute("userId");
 	</div>
 	
 	<%=htmlData%>
-	<form method="post"  action="SubmitServlet" onsubmit="return validate(event)">
+	<form method="post"  action="SubmitServlet"  enctype="multipart/form-data"  onsubmit="return validate(event)">
 		<br/>请输入标题：
 		<input name="title" type="text" style="width:300px;height:30px;"/>
 						&nbsp;&nbsp;&nbsp;&nbsp;请选择类别（只能选择一个）：				
@@ -116,19 +116,17 @@ String userid = (String)request.getSession().getAttribute("userId");
 		<div id="comment" style="width:966px;height:200px;margin-left:0px;margin-top:20px;margin-bottom:20px;">
 		<textarea id="content1" name="content1" cols="100" rows="8" style="width:966px;height:300px;visibility:hidden;"><%=htmlspecialchars(htmlData)%></textarea>
 		<input type="hidden" name="userid" value="<%=userid %>">
-		<input type="submit" name="button" value="提交内容" /> (提交快捷键: Ctrl + Enter)
-		</div>
-	</form>
-<br/>
-    <form action="UploadHandleServlet" enctype="multipart/form-data" method="post"> 
-    	<div style="margin-top:150px;margin-left:100px;width:500px;height:300px" align="right">
-        	上传用户：<input type="text" name="username"><br/>
+		
+		     上传用户：<input type="text" name="username"><br/>
         	上传图片：<input type="file" name="file1"><br/>
         	上传flash：<input type="file" name="file2"><br/>
-        	<input type="submit" value="提交">
-        </div>
-    </form>
-	
+		
+		<input type="submit" name="button" value="提交内容" /> (提交快捷键: Ctrl + Enter)
+		</div>
+		
+	</form>
+<br/>
+
 	<div class="footer" style="margin-top:2px;" >
 				 <div id="site_nav">
 				    <ul>

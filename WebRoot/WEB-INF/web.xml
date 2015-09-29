@@ -266,9 +266,11 @@
 
 
 
+
+
 <servlet>
     <servlet-name>UploadHandleServlet</servlet-name>
-    <servlet-class>com.iNews.servlet.UploadHandleServlet</servlet-class>
+    <servlet-class>com.inews.servlet.UploadHandleServlet</servlet-class>
 </servlet>
 
 <servlet-mapping>

@@ -16,10 +16,10 @@
  */
 
 //文件保存目录路径
-String savePath = pageContext.getServletContext().getRealPath("/") + "static/images/";
+String savePath = pageContext.getServletContext().getRealPath("/") + "images/";
 
 //文件保存目录URL
-String saveUrl  = request.getContextPath() + "static/images/";
+String saveUrl  = request.getContextPath() + "images/";
 
 //定义允许上传的文件扩展名
 HashMap<String, String> extMap = new HashMap<String, String>();
