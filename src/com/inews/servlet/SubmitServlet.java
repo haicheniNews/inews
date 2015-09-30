@@ -32,8 +32,8 @@ public class SubmitServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();	
 
-        
-		
+		int[] varity = new int[1] ; //新闻类别	
+		String[] dbnews = new String[10] ; //新闻类别			
 		//新加代码异常删除 *
 		
 		String savePath = this.getServletContext().getRealPath("images");
@@ -64,11 +64,44 @@ public class SubmitServlet extends HttpServlet {
             for(FileItem item : list){
                 //如果fileitem中封装的是普通输入项的数据
                 if(item.isFormField()){
+                	
                     String name = item.getFieldName();
                     //解决普通输入项的数据的中文乱码问题
                     String value = item.getString("UTF-8");
                     //value = new String(value.getBytes("iso8859-1"),"UTF-8");
                     System.out.println(name + "=" + value);
+                    
+                    if(name.equals("content1")){
+                    	dbnews[0] = value;  
+                    	dbnews[0].replaceAll("\n","<br>");
+                    	dbnews[0].replaceAll(" ","&nbsp;");
+                    }else if(name.equals("title")){
+                    	dbnews[1] = value;                	
+                    }else if(name.equals("checkbox")){
+                    	dbnews[2] =  value;         //取出选中类别的数值           
+                		if(dbnews[2].equals("热点")){
+                			varity[0] = 0; 
+                		}
+                		if(dbnews[2].equals("军事")){
+                			varity[0] = 1; 
+                		}
+                		if(dbnews[2].equals("娱乐")){
+                			varity[0] = 2; 
+                		}
+                		if(dbnews[2].equals("经济")){
+                			varity[0] = 3; 
+                		}
+                		if(dbnews[2].equals("汽车")){
+                			varity[0] = 4; 
+                		}
+                    }else if(name.equals("userid")){
+                    	dbnews[3] =  value;              	
+                    }
+                    
+                    //新加代码*
+                    //以下代码为新闻信息加入数据库内容代码       
+                    
+                    //*新加代码        
                 }else{//如果fileitem中封装的是上传文件
                     //得到上传的文件名称，
                     String filename = item.getName();
@@ -107,55 +140,19 @@ public class SubmitServlet extends HttpServlet {
             
         }
         request.setAttribute("message",message);
-			
-		
-		// *新加代码异常删除	
-		
-      //以下代码为新闻信息加入数据库内容代码
-		System.out.println("aaaa");
-		//String username = request.getParameter("username");
-
-		String content = request.getParameter("content1");
-		String title = request.getParameter("title");
-		String name0 = request.getParameter("checkbox");         //取出选中类别的数值
-		String userid = request.getParameter("userid");
-
-		System.out.println("name=:"+name0);
-
-        //将数据加入数据库！
-		content.replaceAll("\n","<br>");
-		content.replaceAll(" ","&nbsp;");
-
-		System.out.println(content);
-		int[] varity = new int[1] ; //新闻类别	
-		if(name0.equals("热点")){
-			varity[0] = 0; 
-		}
-		if(name0.equals("军事")){
-			varity[0] = 1; 
-		}
-		if(name0.equals("娱乐")){
-			varity[0] = 2; 
-		}
-		if(name0.equals("经济")){
-			varity[0] = 3; 
-		}
-		if(name0.equals("汽车")){
-			varity[0] = 4; 
-		}
-		System.out.println("类别id："+varity[0]);	
-		
-		Date dt = new Date();//获取当前时间
+		// *新加代码异常删除	      
+        Date dt = new Date();//获取当前时间
 		SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日HH时mm分");
 		String date =format.format(dt);
 		//将发布的新闻内容插入数据库
 		DbCRUD db = new DbCRUD();
 		String sql="insert into news(newstitle,newsbody,newsdate,userid,newsimage,newsvideo,typeid,ispublish) values(?,?,?,?,?,?,?,?)";	
-		int result=(Integer) db.update(sql,title,content,date,userid,"6","7",varity[0],"0");
+		int result=(Integer) db.update(sql,dbnews[1],dbnews[0],date,dbnews[3],"6","7",varity[0],"0");
 		result++;
-		db.releaseConn();       
-        
-		response.sendRedirect("/iNews/SubmitTempServlet");
+		db.releaseConn();   			
+		
+
+  		response.sendRedirect("/iNews/SubmitTempServlet");   
 		
 	}
 	
