@@ -26,7 +26,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(request.getSession().getAttribute("userId")==null){viewer3="login.jsp";}   //新闻审核链接（对指定级别用户可见）
 					else{viewer2="news_inspect2.jsp";} %><a href="<%=viewer2 %>">新闻审核链接</a>					
 		<c:if test="${sessionScope.userId==null}"> 
-		
 			<a href="login.jsp">登陆</a>
 			<a href="register.jsp">注册</a> 
 		</c:if>

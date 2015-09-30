@@ -85,7 +85,7 @@ for(i=0;i<cs.length;i++){
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
 <body>
 	<div class="header">
-		<div class="img1">duiye&nbsp;  
+		<div class="img1">  
 			<img src="static/images/logo.jpg" alt="logo">
 		</div>
 

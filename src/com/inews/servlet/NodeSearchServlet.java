@@ -61,7 +61,7 @@ public class NodeSearchServlet extends HttpServlet {
 			Object menuValue=map.get("menuvalue");//获取url
 			Object menuLevel= map.get("menulevel");
 			HashMap<String,Object> temp=new HashMap<String,Object>();
-			if(menuValue==null){
+			if(menuValue==null||menuValue==""||menuValue.equals(" null")){
 				temp.put("isParent", "true");
 			}
 			else{
@@ -82,8 +82,6 @@ public class NodeSearchServlet extends HttpServlet {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-//		System.out.println("--------json------" + json.toString());
-//		System.out.println("--------jsonArray------" + arr.toString());
 
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");

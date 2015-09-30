@@ -14,7 +14,7 @@ public class ConnectionUtils {
 		//数据库用户名
 		String userName="root";
 		//密码
-		String userPasswd="ABCabc123";
+		String userPasswd="123456";//ABCabc123
 		//数据库名
 		String dbName="db_news";
 		//表名
