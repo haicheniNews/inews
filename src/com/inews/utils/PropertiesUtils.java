@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class PropertiesUtils {
 	public static String getFilePath(){
-		InputStream in = DbUtils.class.getResourceAsStream("database.properties");
+		InputStream in = DbUtils.class.getResourceAsStream("upload.properties");
 		Properties p = new Properties();
 		try {
 			p.load(in);

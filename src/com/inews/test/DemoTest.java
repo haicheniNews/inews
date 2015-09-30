@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import com.inews.entity.RoleUser;
 import com.inews.utils.DbCRUD;
+import com.inews.utils.PropertiesUtils;
 
 
 public class DemoTest {
@@ -28,4 +29,11 @@ public class DemoTest {
 		
 		System.out.println("user[0]="+user[0]);
   }
+	@Test
+	public void proTest(){
+		String value=PropertiesUtils.getFilePath();
+		System.out.println(value);
+	}
+	
+	
 }
