@@ -2,7 +2,7 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-request.setCharacterEncoding("gbk");
+request.setCharacterEncoding("utf-8");
 String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
 
 %>

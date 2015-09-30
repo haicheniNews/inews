@@ -180,7 +180,7 @@ if(userid == null){
 		} %>
 		<br/>
 		视频<% if(news.getNewsImage()!="" && news.getNewsImage()!=null){
-			out.write(" <video  width='400px' height='300px'  autoplay='autoplay' src='video/"+news.getNewsVideo()+"' controls='controls'> 	</video>");
+			out.write("<video  width='400px' height='300px'  autoplay='autoplay' src='images/"+news.getNewsVideo()+"' controls='controls'> 	</video>");
 		} %>
 		
 

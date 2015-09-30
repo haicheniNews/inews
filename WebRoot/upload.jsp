@@ -19,6 +19,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	<input type="submit" value="提交">
         </div>
     </form>
- 
+ <img src="images/hello.jpg">
   </body>
 </html>

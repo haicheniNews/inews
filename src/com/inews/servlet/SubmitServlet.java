@@ -29,6 +29,28 @@ public class SubmitServlet extends HttpServlet {
 
 		//response.setContentType("text/html;charset=gbk");
 		//request.setCharacterEncoding("GBK");
+		 
+		this.doGet(request, response);	
+	}
+	
+	
+
+	/**
+	 * The doPost method of the servlet. <br>
+	 *
+	 * This method is called when a form has its tag value method equals to post.
+	 * 
+	 * @param request the request send by the client to the server
+	 * @param response the response send by the server to the client
+	 * @throws ServletException if an error occurred
+	 * @throws IOException if an error occurred
+	 */
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+
+		
+		
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();	
 
@@ -104,7 +126,17 @@ public class SubmitServlet extends HttpServlet {
                     //*新加代码        
                 }else{//如果fileitem中封装的是上传文件
                     //得到上传的文件名称，
+                    String name = item.getFieldName();
                     String filename = item.getName();
+                    
+                     if(name.equals("file1")){
+                    	dbnews[4] =  filename;              	
+                    }else if(name.equals("file2")){
+                    	dbnews[5] =  filename;              	
+                    }
+                     
+             		System.out.println("00现在的："+dbnews[4]);
+            		System.out.println("00最后的："+dbnews[5]);
                     System.out.println(filename);
                     if(filename==null || filename.trim().equals("")){
                         continue;
@@ -146,32 +178,15 @@ public class SubmitServlet extends HttpServlet {
 		String date =format.format(dt);
 		//将发布的新闻内容插入数据库
 		DbCRUD db = new DbCRUD();
+		System.out.println("现在的："+dbnews[4]);
+		System.out.println("最后的："+dbnews[5]);
 		String sql="insert into news(newstitle,newsbody,newsdate,userid,newsimage,newsvideo,typeid,ispublish) values(?,?,?,?,?,?,?,?)";	
-		int result=(Integer) db.update(sql,dbnews[1],dbnews[0],date,dbnews[3],"6","7",varity[0],"0");
+		int result=(Integer) db.update(sql,dbnews[1],dbnews[0],date,dbnews[3],dbnews[4],dbnews[5],varity[0],"0");
 		result++;
 		db.releaseConn();   			
 		
 
-  		response.sendRedirect("/iNews/SubmitTempServlet");   
-		
-	}
-	
-	
-
-	/**
-	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		this.doGet(request, response);
+  		response.sendRedirect("/iNews/SubmitTempServlet");  
 	}
 
 }
