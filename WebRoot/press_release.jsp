@@ -113,13 +113,12 @@ String userid = (String)request.getSession().getAttribute("userId");
 		<input type="radio" value="经济"  name="checkbox" />经济
 		<input type="radio" value="汽车"  name="checkbox"/>汽车			
 					<br/>
-		<div id="comment" style="width:966px;height:200px;margin-left:0px;margin-top:20px;margin-bottom:20px;">
+		<div id="comment" style="width:966px;height:400px;margin-left:0px;margin-top:20px;margin-bottom:20px;">
 		<textarea id="content1" name="content1" cols="100" rows="8" style="width:966px;height:300px;visibility:hidden;"><%=htmlspecialchars(htmlData)%></textarea>
 		<input type="hidden" name="userid" value="<%=userid %>">
-		
-		     上传用户：<input type="text" name="username"><br/>
-        	上传图片：<input type="file" name="file1"><br/>
-        	上传flash：<input type="file" name="file2"><br/>
+		<br/>
+        	上传图片：<input type="file" name="file1"><br/><br/>
+        	上传flash：<input type="file" name="file2"><br/><br/>
 		
 		<input type="submit" name="button" value="提交内容" /> (提交快捷键: Ctrl + Enter)
 		</div>
