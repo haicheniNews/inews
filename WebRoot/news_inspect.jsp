@@ -179,8 +179,7 @@ for(i=0;i<cs.length;i++){
 	            	  		out.print("经济");
 	            	  }else {
 	            	  		out.print("汽车");
-	            	  }    
-	            	  System.out.println(news[i].getIsPublish());	            
+	            	  }    	            
 	            %>
 	            </span></div></td>
 	            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">
