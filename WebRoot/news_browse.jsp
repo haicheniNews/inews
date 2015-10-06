@@ -138,7 +138,7 @@ if(userid == null){
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
 <body>
 	<div class="header">
-		<div class="img1">&nbsp; 
+		<div class="img1">
 			<img src="static/images/logo.jpg" alt="logo">
 		</div>
 		<div class="button">

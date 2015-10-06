@@ -18,11 +18,9 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 		DbCRUD db = new DbCRUD();
 		String query = "SELECT * FROM news where typeid=?;";
 		ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) db.query(query, id);
-out.print("data.size():"+data.size());
 		News news[] = new News[1];
 		int i = 0;
-		//int[] da = new int[2];
-		System.out.println("11111111111111111111");
+
 
  %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -78,7 +76,6 @@ out.print("data.size():"+data.size());
 </head>
 <link rel="stylesheet" type="text/css" href="./static/css/index.css">
 <body> 
-<br><br><!-- 测试代码 -->		<a href="news_inspect2.jsp">审核表单</a>
 	<div class="header">
 		<div class="img1"> 
 			<img src="static/images/logo.jpg" alt="logo">
@@ -99,11 +96,11 @@ out.print("data.size():"+data.size());
 		<div class="title fl">
 			<ul>
 				<li><a href="index.jsp">首页</a></li>
-				<li><a href="#">热点</a></li>
-				<li><a href="#">军事</a></li>
-				<li><a href="#">娱乐</a></li>
-				<li><a href="#">经济</a></li>
-				<li><a href="#">汽车</a></li>
+				<li><a href="IndexToQuantityServlet?name=hot">热点</a></li>
+				<li><a href="IndexToQuantityServlet?name=military">军事</a></li>
+				<li><a href="IndexToQuantityServlet?name=amusement">娱乐</a></li>
+				<li><a href="IndexToQuantityServlet?name=economic">经济</a></li>
+				<li><a href="IndexToQuantityServlet?name=car">汽车</a></li>
 			</ul>
 		</div>	
 

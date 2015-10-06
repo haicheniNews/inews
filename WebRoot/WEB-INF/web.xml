@@ -197,6 +197,16 @@
 	</filter-mapping>
 	
 	<filter>
+		<description>首页初始化</description>
+		<filter-name>IndexFilter</filter-name>
+		<filter-class>com.inews.filter.IndexFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>IndexFilter</filter-name>
+		<url-pattern>/index.jsp</url-pattern>
+	</filter-mapping>
+	
+	<filter>
 		<description>用户第一次菜单管理时的初始化filter</description>
 		<filter-name>MenuManageFilter</filter-name>
 		<filter-class>com.inews.filter.MenuManageFilter</filter-class>

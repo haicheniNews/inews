@@ -16,9 +16,12 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.inews.utils.DbCRUD;
+import com.inews.utils.PropertiesUtils;
 
 
 public class SubmitServlet extends HttpServlet {
+	
+	String savePath = PropertiesUtils.getFilePath();
 
 	/**
 	 * 在新闻发布界面   提交数据（包括内容和类别）到后台，后跳转到中间servlet（防止刷新）
@@ -37,7 +40,7 @@ public class SubmitServlet extends HttpServlet {
 		String[] dbnews = new String[10] ; //新闻类别			
 		//新加代码异常删除 *
 		
-		String savePath = this.getServletContext().getRealPath("images");
+		//String savePath = this.getServletContext().getRealPath("images");
         File file = new File(savePath);
         //判断上传文件的保存目录是否存在
         if (!file.exists() && !file.isDirectory()) {
@@ -62,6 +65,7 @@ public class SubmitServlet extends HttpServlet {
             }
             //4、使用ServletFileUpload解析器解析上传数据，解析结果返回的是一个List<FileItem>集合，每一个FileItem对应一个Form表单的输入项
             List<FileItem> list = upload.parseRequest(request);
+            System.out.println("size(): "+list.size());
             for(FileItem item : list){
                 //如果fileitem中封装的是普通输入项的数据
                 if(item.isFormField()){
@@ -99,7 +103,7 @@ public class SubmitServlet extends HttpServlet {
                     	dbnews[3] =  value;              	
                     }
                     
-                    //新加代码*
+                    //新加代码* 	
                     //以下代码为新闻信息加入数据库内容代码       
                     
                     //*新加代码        
@@ -107,26 +111,42 @@ public class SubmitServlet extends HttpServlet {
                     //得到上传的文件名称，
                     String name = item.getFieldName();
                     String filename = item.getName();
+                    filename =""+System.currentTimeMillis()+filename.substring(filename.lastIndexOf(File.separator)+1);
                     
-                     if(name.equals("file1")){
+                     if("file1".equals(name)){
                     	dbnews[4] =  filename;              	
-                    }else if(name.equals("file2")){
+                    }
+                     if("file2".equals(name)){
                     	dbnews[5] =  filename;              	
                     }
                      
-             		System.out.println("00现在的："+dbnews[4]);
-            		System.out.println("00最后的："+dbnews[5]);
+             		System.out.println("file1 name："+dbnews[4]);
+            		System.out.println("file2 name："+dbnews[5]);
                     System.out.println(filename);
                     if(filename==null || filename.trim().equals("")){
                         continue;
                     }
                     //注意：不同的浏览器提交的文件名是不一样的，有些浏览器提交上来的文件名是带有路径的，如：  c:\a\b\1.txt，而有些只是单纯的文件名，如：1.txt
                     //处理获取到的上传文件的文件名的路径部分，只保留文件名部分
-                    filename = filename.substring(filename.lastIndexOf("\\")+1);
+                    
+                    System.out.println("last filename : "+filename);
                     //获取item中的上传文件的输入流
                     InputStream in = item.getInputStream();
-                    //创建一个文件输出流
-                    FileOutputStream out1 = new FileOutputStream(savePath + "\\" + filename);
+                    FileOutputStream out1 =null;
+                    File temp=null;
+                    if(filename.contains("jpg")||filename.contains("png")||filename.contains("gif")){
+                    	//创建一个文件输出流
+                    	temp=new File(savePath + File.separator + "images");
+                    	
+                    }else if(filename.contains("swf")||filename.contains("mp4")||filename.contains("rmvb")){
+                    	temp=new File(savePath + File.separator + "video");
+                    }
+                    StringBuffer sb=new StringBuffer();
+                    if(!temp.exists()){
+                    	temp.mkdirs();
+                    }
+                    
+                    out1 = new FileOutputStream(temp.getPath() + File.separator +filename);
                     //创建一个缓冲区
                     byte buffer[] = new byte[1024];
                     //判断输入流中的数据是否已经读完的标识
@@ -153,18 +173,16 @@ public class SubmitServlet extends HttpServlet {
         request.setAttribute("message",message);
 		// *新加代码异常删除	      
         Date dt = new Date();//获取当前时间
-		SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日HH时mm分");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date =format.format(dt);
 		//将发布的新闻内容插入数据库
 		DbCRUD db = new DbCRUD();
-		System.out.println("现在的："+dbnews[4]);
-		System.out.println("最后的："+dbnews[5]);
+		System.out.println("图片："+dbnews[4]);
+		System.out.println("视频："+dbnews[5]);
 		String sql="insert into news(newstitle,newsbody,newsdate,userid,newsimage,newsvideo,typeid,ispublish) values(?,?,?,?,?,?,?,?)";	
 		int result=(Integer) db.update(sql,dbnews[1],dbnews[0],date,dbnews[3],dbnews[4],dbnews[5],varity[0],"0");
 		result++;
 		db.releaseConn();   			
-		
-
   		response.sendRedirect("/iNews/SubmitTempServlet"); 
 
 	}

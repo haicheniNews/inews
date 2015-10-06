@@ -106,7 +106,7 @@ String userid = (String)request.getSession().getAttribute("userId");
 	<form method="post"  action="SubmitServlet"  enctype="multipart/form-data"  onsubmit="return validate(event)">
 		<br/>请输入标题：
 		<input name="title" type="text" style="width:300px;height:30px;"/>
-						&nbsp;&nbsp;&nbsp;&nbsp;请选择类别（只能选择一个）：				
+						&nbsp;&nbsp;&nbsp;&nbsp;请选择类别：				
 		<input type="radio" value="热点" name="checkbox" />热点
 		<input type="radio" value="军事"  name="checkbox" />军事   
 		<input type="radio" value="娱乐"  name="checkbox"/>娱乐
@@ -118,9 +118,9 @@ String userid = (String)request.getSession().getAttribute("userId");
 		<input type="hidden" name="userid" value="<%=userid %>">
 		<br/>
         	上传图片：<input type="file" name="file1"><br/><br/>
-        	上传flash：<input type="file" name="file2"><br/><br/>
+        	上传视频：<input type="file" name="file2"><br/><br/>
 		
-		<input type="submit" name="button" value="提交内容" /> (提交快捷键: Ctrl + Enter)
+		<input type="submit" name="button" value="提交内容" /><!--  (提交快捷键: Ctrl + Enter) -->
 		</div>
 		
 	</form>

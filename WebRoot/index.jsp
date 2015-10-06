@@ -5,7 +5,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="zh-ch">
+<html>
 <head>
 	<title>主页</title>
 </head>
@@ -18,13 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="button">
 		<%String viewer; 
 					if(request.getSession().getAttribute("userId")==null){viewer="login.jsp";}   //发布新闻的标题
-					else{viewer="press_release.jsp";} %><a href="<%=viewer %>">新闻发布栏目</a>
-		<%String viewer2; 
-					if(request.getSession().getAttribute("userId")==null){viewer2="login.jsp";}   //新闻投递状态（对所有人可见）
-					else{viewer2="news_inspect.jsp";} %><a href="<%=viewer2 %>">新闻投递状态</a>				
-		<%String viewer3; 
-					if(request.getSession().getAttribute("userId")==null){viewer3="login.jsp";}   //新闻审核链接（对指定级别用户可见）
-					else{viewer2="news_inspect2.jsp";} %><a href="<%=viewer2 %>">新闻审核链接</a>					
+					else{viewer="press_release.jsp";} %><a href="<%=viewer %>">发布新闻</a>
+		
 		<c:if test="${sessionScope.userId==null}"> 
 			<a href="login.jsp">登陆</a>
 			<a href="register.jsp">注册</a> 
@@ -61,9 +56,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="clear"></div>
-	
+
 	<div class="mainbody">
 		<div class="mleft fl">
+		<%--
 			<div class="news">
 				<div class="title"><span>热点新闻 </span><a href="">查看更多</a> </div>
 				<ul>
@@ -75,103 +71,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a href="#">这里是一条新闻</a></li>
 				</ul>
 			</div>
-			<div class="news">
-				<div class="title"><span>热点新闻 </span><a href="">查看更多</a> </div>
-				<ul>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-				</ul>
-			</div>
 			
-			<div class="news">
-				<div class="title"><span>热点新闻 </span><a href="">查看更多</a> </div>
-				<ul>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-				</ul>
-			</div>
-			
-			<div class="news">
-				<div class="title"><span>热点新闻 </span> <a href="">查看更多</a> </div>
-				<ul>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-				</ul>
-			</div>
-						<div class="news">
-				<div class="title"><span>热点新闻 </span><a href="">查看更多</a> </div>
-				<ul>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-				</ul>
-			</div>
-			<div class="news">
-				<div class="title"><span>热点新闻 </span><a href="">查看更多</a> </div>
-				<ul>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-				</ul>
-			</div>
-			
-			<div class="news">
-				<div class="title"><span>热点新闻 </span><a href="">查看更多</a> </div>
-				<ul>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-				</ul>
-			</div>
-			
-			<div class="news">
-				<div class="title"><span>热点新闻 </span> <a href="">查看更多</a> </div>
-				<ul>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-				</ul>
-			</div>
-
+			<%String viewer2; 
+					if(request.getSession().getAttribute("userId")==null){viewer2="login.jsp";}   //新闻投递状态（对所有人可见）
+					else{viewer2="news_inspect.jsp";} %><a href="<%=viewer2 %>">新闻投递状态</a>				
+		<%String viewer3; 
+					if(request.getSession().getAttribute("userId")==null){viewer3="login.jsp";}   //新闻审核链接（对指定级别用户可见）
+					else{viewer2="news_inspect2.jsp";} %><a href="<%=viewer2 %>">新闻审核链接</a>					
+			--%>
+			<c:forEach items="${index_my_list}" var="ilist" begin="0" end="5">
+				<div class="news">
+					<c:forEach items="${ilist}" var="tmp1" begin="0" end="0">
+						<div class="title"><span>${tmp1.typename }</span><a href="">查看更多</a> </div>
+					</c:forEach>
+						<ul>
+							<c:forEach items="${ilist}" var="tmp">
+										<li><a href="IndexToBrowseServlet?name=${tmp.newsid }">${tmp.newstitle }</a></li>
+							</c:forEach>
+						</ul>
+				</div>
+			</c:forEach>
 		</div>
 		
 		<div class="mright fr" style="margin-top: 10px;">
+		
+			<c:forEach items="${index_my_list_right}" var="ilist2">
+				<div class="list">
+					<div class="title"><span>头条</span> <a href=""></a> </div>
+					
+					<ul>
+						<c:forEach items="${ilist2}" var="tmp2">
+							<li><a href="IndexToBrowseServlet?name=${tmp2.newsid }">${tmp2.newstitle }</a></li>
+						</c:forEach>
+					</ul>
+					</div>
+				<div class="clear"></div>
+			</c:forEach>
+			
 			<div class="list">
-				<div class="title"><span>头条</span> <a href="">查看更多</a> </div>
+				<div class="title"><span>广告预留</span> <a href=""></a> </div>
 				<ul>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-				</ul>
-				</div>
-			<div class="clear"></div>
-			<div class="list">
-				<div class="title"><span>排行版</span> <a href="">查看更多</a> </div>
-				<ul>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
-					<li><a href="#">这里是一条新闻</a></li>
+					<li><a href="#">广告预留招商</a></li>
+					<li><a href="#">广告预留招商</a></li>
+					<li><a href="#">广告预留招商</a></li>
+					<li><a href="#">广告预留招商</a></li>
+					<li><a href="#">广告预留招商</a></li>
 				</ul>
 			</div>
 			<div class="clear"></div>
@@ -207,6 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    iNews(北京)投资有限公司  版权所有<br />
 				  </div>
 	</div>
+
 
 
 </body>
