@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <%
 	DbCRUD db = new DbCRUD();
-	String query = "SELECT * FROM news a LEFT JOIN news_type b ON a.typeid=b.typeid LEFT JOIN user_info c ON a.userid=c.userid WHERE a.ispublish=0;";
+	String query = "SELECT * FROM news a LEFT JOIN news_type b ON a.typeid=b.typeid LEFT JOIN user_info c ON a.userid=c.userid WHERE a.ispublish=2;";
 	ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) db.query(query, null);
 	session.setAttribute("news_data",data);
 	db.releaseConn();
@@ -90,16 +90,6 @@ for(i=0;i<cs.length;i++){
 </head>
 <body>
  	<div class="up" style="margin:50px 0px 50px 0px;">
-		<form action="<%=basePath %>MenuQueryServlet" method="post">
-			新闻分类:
-					<select name="news_type">
-							<option value="-1" selected="selected">--请选择--</option>
-							<option value="0" <c:if test="${sessionScope.menu_level==0 }">selected="selected"</c:if> >0级母菜单</option>
-							<option value="1" <c:if test="${sessionScope.menu_level==1 }">selected="selected"</c:if> >1级菜单</option>
-							<option value="2" <c:if test="${sessionScope.menu_level==2 }">selected="selected"</c:if> >2级菜单</option>
-					</select>
-			<input type="submit" value="查询"/>
-		</form>
 	</div>
 	
 	<div>
@@ -165,7 +155,7 @@ for(i=0;i<cs.length;i++){
 			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${news.typename }</span></div></td>
 			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${news.userid }(${news.username })</span></div></td>
 			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${news.newsdate }</span></div></td>
-			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" /><a href="<%=basePath %>PassNewsById?newsId=${news.newsid }&isPub=2" onclick="return deleteRecord('通过')">初审通过</a>&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" /><a href="<%=basePath %>PassNewsById?newsId=${news.newsid  }&isPub=3" onclick="return deleteRecord('不通过')" id="delete">不通过</a></span></div></td>
+			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="images/edt.gif" width="16" height="16" /><a href="<%=basePath %>PassNewsById?newsId=${news.newsid }&isPub=1&check=1" onclick="return deleteRecord('发布新闻')">发布新闻</a>&nbsp; &nbsp;<img src="images/del.gif" width="16" height="16" /><a href="<%=basePath %>PassNewsById?newsId=${news.newsid  }&isPub=3&check=1" onclick="return deleteRecord('不通过')" id="delete">不通过</a></span></div></td>
 			          </tr>
 		          </c:forEach>
 		

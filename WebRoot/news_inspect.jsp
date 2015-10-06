@@ -241,7 +241,7 @@ for(i=0;i<cs.length;i++){
 				  </div>
 				 
 				  <div id="copyright">
-				    &copy; 2003-2015 ITeye.com.    [ <a href="http://www.miibeian.gov.cn">京ICP证110151号</a>  京公网安备110105010620 ]<br/>
+				    &copy; 2003-2015 iNews.com.    [ <a href="http://www.miibeian.gov.cn">京ICP证110151号</a>  京公网安备110105010620 ]<br/>
 				    iNews(北京)投资有限公司  版权所有<br />
 				  </div>
 	</div>

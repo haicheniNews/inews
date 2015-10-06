@@ -21,7 +21,8 @@ import com.inews.utils.PropertiesUtils;
 
 public class SubmitServlet extends HttpServlet {
 	
-	String savePath = PropertiesUtils.getFilePath();
+	//String savePath = PropertiesUtils.getFilePath();
+	String savePath=null;
 
 	/**
 	 * 在新闻发布界面   提交数据（包括内容和类别）到后台，后跳转到中间servlet（防止刷新）
@@ -41,6 +42,8 @@ public class SubmitServlet extends HttpServlet {
 		//新加代码异常删除 *
 		
 		//String savePath = this.getServletContext().getRealPath("images");
+		savePath=getServletConfig().getServletContext().getRealPath("/")+"upload";
+		System.out.println(savePath);
         File file = new File(savePath);
         //判断上传文件的保存目录是否存在
         if (!file.exists() && !file.isDirectory()) {
@@ -111,7 +114,7 @@ public class SubmitServlet extends HttpServlet {
                     //得到上传的文件名称，
                     String name = item.getFieldName();
                     String filename = item.getName();
-                    filename =""+System.currentTimeMillis()+filename.substring(filename.lastIndexOf(File.separator)+1);
+                    filename =""+System.currentTimeMillis()+filename.substring(filename.lastIndexOf("."));
                     
                      if("file1".equals(name)){
                     	dbnews[4] =  filename;              	

@@ -16,7 +16,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 		int id = (Integer)request.getAttribute("id");
 		int maxSize = 3;
 		DbCRUD db = new DbCRUD();
-		String query = "SELECT * FROM news where typeid=?;";
+		String query = "SELECT * FROM news where typeid=? AND ispublish=1;";
 		ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) db.query(query, id);
 		News news[] = new News[1];
 		int i = 0;
@@ -116,10 +116,9 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
   			Map<String ,Object>  map=data.get(j);
 		%>			
 			<form action="QuanToBrowServlet" method="post">
-				<div style="width: 200px;height: 328px;border: 1px solid red;float:left;margin-top: 20px;margin-left:30px;">
-				<input type="image"   width="200px" height="200px"  style="float:left;"/>	 
+				<div style="width: 200px;height: 280px;border: 1px solid red;float:left;margin-top: 20px;margin-left:30px;">
+				<input type="image"   width="200px" height="200px"  style="float:left;" src="<%=path+"/"+"upload/images"+"/"+map.get("newsimage") %>"/>	 
 				<span style="width: 200px;height: 128px;float:left;\">
-				<font size="4px" color="#F75000">照片</font><br/>
 				<font size="2px" color="red">主题 <%=map.get("newstitle") %></font> <br/>
 				<font size="2px" color="#F75000">时间<%=map.get("newsdate") %></font> <br/>
 				<font size="2px" color="grey">来源作者<%=map.get("userid") %></font></span></div>
@@ -143,7 +142,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 				  </div>
 				 
 				  <div id="copyright">
-				    &copy; 2003-2015 ITeye.com.    [ <a href="http://www.miibeian.gov.cn">京ICP证110151号</a>  京公网安备110105010620 ]<br/>
+				    &copy; 2003-2015 iNews.com.    [ <a href="http://www.miibeian.gov.cn">京ICP证110151号</a>  京公网安备110105010620 ]<br/>
 				    iNews(北京)投资有限公司  版权所有<br />
 				  </div>
 	</div>

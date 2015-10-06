@@ -44,7 +44,7 @@ public class DbCRUD implements CRUD {
 
 	public Object query(String sql, Object... args) {
 		PreparedStatement pstmt=null;
-		ArrayList<Map<String, Object>> data=new ArrayList<Map<String, Object>>(0);
+		ArrayList<Map<String, Object>> data=new ArrayList<Map<String, Object>>(10);
 		try {
 			pstmt = pstmtInit(conn.prepareStatement(sql),args);
 			

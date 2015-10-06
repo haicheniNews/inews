@@ -14,6 +14,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import com.inews.utils.DbCRUD;
+import com.inews.utils.PropertiesUtils;
 
 public class IndexFilter implements Filter {
 
@@ -39,14 +40,18 @@ public class IndexFilter implements Filter {
 		}
 		
 		ArrayList list=new ArrayList();
-		String sql2 = "SELECT * FROM news GROUP BY typeid  AND a.ispublish=1 ;";
+		String sql2 = "SELECT * FROM news GROUP BY typeid;";
 		ArrayList<Map<String, Object>> temp2=(ArrayList<Map<String, Object>>)dc.query(sql2, null);
 		list.add(temp2);
 		
 		dc.releaseConn();
+		
+		String value=PropertiesUtils.getFilePath();
+		
 		HttpServletRequest request=(HttpServletRequest) arg0;
 		request.getSession().setAttribute("index_my_list", index_my_list);
 		request.getSession().setAttribute("index_my_list_right", list);
+		request.getSession().setAttribute("img_path", value);
 		arg2.doFilter(arg0, arg1);
 		System.out.println("ok"+" : "+index_my_list.size());
 	}

@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.inews.entity.*"%>
-<%@page import="com.inews.utils.DbCRUD"%>
+<%@page import="com.inews.utils.DbCRUD,com.inews.utils.StringUtils"%>
+<%@page import="java.io.File"%>
 <!-- 
 某一具体新闻详情展示页面
 @author  weipeng
@@ -10,6 +11,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 request.setCharacterEncoding("gbk");
 String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
+String imgPath=request.getContextPath();//request.getSession().getServletContext().getRealPath("/");
 %>
 <%	
 String userid = (String)request.getSession().getAttribute("userId");
@@ -17,9 +19,15 @@ if(userid == null){
 	userid = "游客";
 }
 	String nid =(String)request.getAttribute("nid");
+	String i=""+(Integer)request.getAttribute("pre");
+	boolean pre=false;
+	if(!StringUtils.isNull(i)){
+		pre=true;
+	}
+	request.setAttribute("prev",pre);
 		//通过nid查询对应的news里面的内容
  DbCRUD db = new DbCRUD();
-	String query = "SELECT * FROM news where newsid=?;";
+	String query = "SELECT * FROM news where newsid=?";
 		int value = Integer.parseInt(nid);
 		ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) db.query(query, value);
 		News news = new News();
@@ -155,12 +163,12 @@ if(userid == null){
 	<div class="nav">
 		<div class="title fl">
 			<ul>
-				<li><a href="#">首页</a></li>
-				<li><a href="#">热点</a></li>
-				<li><a href="#">军事</a></li>
-				<li><a href="#">娱乐</a></li>
-				<li><a href="#">经济</a></li>
-				<li><a href="#">汽车</a></li>
+				<li><a href="index.jsp">首页</a></li>
+				<li><a href="IndexToQuantityServlet?name=hot">热点</a></li>
+				<li><a href="IndexToQuantityServlet?name=military">军事</a></li>
+				<li><a href="IndexToQuantityServlet?name=amusement">娱乐</a></li>
+				<li><a href="IndexToQuantityServlet?name=economic">经济</a></li>
+				<li><a href="IndexToQuantityServlet?name=car">汽车</a></li>
 			</ul>
 		</div>	
 
@@ -172,24 +180,27 @@ if(userid == null){
 	
 	<div id="content">
 	
-		<div id="head"><font size="15px"><%= news.getNewsTitle() %></font><br/>时间:<%=news.getNewsDate() %>，作者：<%=news.getNewsAuthor() %></div>
+		<div id="head"><h2><%= news.getNewsTitle() %></h2><br/>时间:<%=news.getNewsDate() %>，作者：<%=news.getNewsAuthor() %></div>
 		
 		<div id="imgword" align="center">
-		图像<% if(news.getNewsImage()!="" && news.getNewsImage()!=null){
-			out.write("<img src='images/"+news.getNewsImage()+"' width='400px' height='500px' />");
+		<% if(news.getNewsImage()!="" && news.getNewsImage()!=null){
+			String imgpath=(String)session.getAttribute("img_path");//data
+			//out.write("<img src="+imgpath+File.separator+"images"+File.separator+news.getNewsImage()+"/>");
+			out.write("<img src="+imgPath+"/"+"upload/images"+"/"+data.get(0).get("newsimage")+">");
 		} %>
 		<br/>
-		视频<% if(news.getNewsImage()!="" && news.getNewsImage()!=null){
-			out.write("<video  width='400px' height='300px'  autoplay='autoplay' src='images/"+news.getNewsVideo()+"' controls='controls'> 	</video>");
+		<% if(news.getNewsVideo()!="" && news.getNewsVideo()!=null){
+			out.write("<video  width='400px' height='300px'  autoplay='autoplay' src='"+imgPath+"/upload/video/"+news.getNewsVideo()+"' controls='controls'> 	</video>");
 		} %>
+		</div>
 		
-
-
-
-	
-		文字<br/><%=news.getNewsBody() %></div>
-		<br/>
-		已评论区:
+		<div style="text-align: left;">
+			<p>
+				&nbsp;&nbsp;&nbsp;<%=news.getNewsBody() %>
+			</p>
+		</div>
+		
+		<div <c:if test="${prev==false }">style="text-align: left;margin-top: 50px;"</c:if> style="display:none;">已有评论:</div>
 		
 		<div>
 			<% 
@@ -203,14 +214,13 @@ if(userid == null){
 			<% }
 			%>
 		</div>
-		<br/>
-	 
-	  <br/>  评论区：
+		
+<div <c:if test="${prev==false }">style="text-align: left;margin-top: 50px;"</c:if> style="display:none;">评论:</div>
 		<form name="example" method="post" id="form1" action="SubmitCommentServlet" onsubmit="return checksubmit();">
 
-			<div id="comment">
+			<div  id="comment"  align="center" <c:if test="${prev==true }">style="display:none;"</c:if> >
 			
-			<textarea name="content1" cols="100" rows="8" style="width:966px;height:200px;visibility:hidden;" onclick="method()"><%=htmlspecialchars(htmlData)%></textarea>
+			<textarea name="content1" cols="50" rows="8" style="visibility:hidden;" onclick="method()"><%=htmlspecialchars(htmlData)%></textarea>
 			<br />
 
 			<input type="submit" name="button" value="提交评论" /> (提交快捷键: Ctrl + Enter)
@@ -222,7 +232,7 @@ if(userid == null){
 	</div>
 	
 	
-	<div class="footer" >
+	<div class="footer" style="margin-top: 50px;" >
 				 <div id="site_nav">
 				    <ul>
 				      <li><a href="/index/service">广告服务</a></li>
@@ -236,7 +246,7 @@ if(userid == null){
 				  </div>
 				 
 				  <div id="copyright">
-				    &copy; 2003-2015 ITeye.com.    [ <a href="http://www.miibeian.gov.cn">京ICP证110151号</a>  京公网安备110105010620 ]<br/>
+				    &copy; 2003-2015 iNews.com.    [ <a href="http://www.miibeian.gov.cn">京ICP证110151号</a>  京公网安备110105010620 ]<br/>
 				    iNews(北京)投资有限公司  版权所有<br />
 				  </div>
 	</div>

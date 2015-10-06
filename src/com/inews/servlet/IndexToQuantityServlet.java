@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.inews.utils.StringUtils;
+
 public class IndexToQuantityServlet extends HttpServlet {
 
 /**
@@ -38,6 +40,7 @@ public class IndexToQuantityServlet extends HttpServlet {
 		}    
 		System.out.println(id);
 		request.setAttribute("id", id);
+		
 		request.getRequestDispatcher("/news_quantity.jsp").forward(request, response);	
 	}
 
