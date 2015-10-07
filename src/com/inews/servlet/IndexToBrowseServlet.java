@@ -24,14 +24,7 @@ public class IndexToBrowseServlet extends HttpServlet {
 		
 		String name = (String)request.getParameter("name");
 		request.setAttribute("nid", name);
-		String p=request.getParameter("pre");
-		int pre=0;
-		if(!StringUtils.isNull(p)){
-			pre=Integer.parseInt(p);
-		}
-		if(pre==1){
-			request.setAttribute("pre", pre);
-		}
+
 		request.getRequestDispatcher("/news_browse.jsp").forward(request, response);
 	}
 

@@ -65,10 +65,11 @@ public class PassNewsById extends HttpServlet {
 		DbCRUD dc=new DbCRUD();
 		int i=(Integer)dc.update(update, Integer.parseInt(isPub),Integer.parseInt(newsId));
 		dc.releaseConn();
+		
 		if(i>0&&StringUtils.isNull(check)){
-			response.sendRedirect("admin/news_manage.jsp");
+			response.sendRedirect("admin/news_manage.jsp?news_type="+request.getSession().getAttribute("type_id"));
 		}else if(i>0&&!StringUtils.isNull(check)){
-			response.sendRedirect("admin/news_recheck.jsp");
+			response.sendRedirect("admin/news_recheck.jsp?news_type="+request.getSession().getAttribute("type_id"));
 		}else{
 			System.out.println("审核出错了. PassNewsById");
 			response.sendRedirect("admin/error.jsp");

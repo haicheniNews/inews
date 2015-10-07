@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@page import="com.inews.utils.DbCRUD,java.util.*;"%>
+<%@page import="com.inews.utils.DbCRUD,java.util.*"%>
+<%@page import="com.inews.utils.StringUtils;" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -8,8 +9,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <%
+	String typeid=request.getParameter("news_type");
+	String query="";
+	if(StringUtils.isNull(typeid)||typeid.equals("-1")){
+		query = "SELECT * FROM news a LEFT JOIN news_type b ON a.typeid=b.typeid LEFT JOIN user_info c ON a.userid=c.userid WHERE a.ispublish=2;";
+		session.setAttribute("type_id","-1");
+	}else{
+		session.removeAttribute("type_id");
+		query = "SELECT * FROM news a LEFT JOIN news_type b ON a.typeid=b.typeid LEFT JOIN user_info c ON a.userid=c.userid WHERE a.ispublish=2 and a.typeid="+Integer.parseInt(typeid);
+		session.setAttribute("type_id",Integer.parseInt(typeid));
+	}
 	DbCRUD db = new DbCRUD();
-	String query = "SELECT * FROM news a LEFT JOIN news_type b ON a.typeid=b.typeid LEFT JOIN user_info c ON a.userid=c.userid WHERE a.ispublish=2;";
 	ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) db.query(query, null);
 	session.setAttribute("news_data",data);
 	db.releaseConn();
@@ -90,6 +100,19 @@ for(i=0;i<cs.length;i++){
 </head>
 <body>
  	<div class="up" style="margin:50px 0px 50px 0px;">
+ 		<form action="news_recheck.jsp" method="post">
+			新闻分类:
+					<select name="news_type">
+							<option value="-1" selected="selected">--请选择--</option>
+							<option value="0" <c:if test="${sessionScope.type_id==0 }">selected="selected"</c:if> >热点</option>
+							<option value="1" <c:if test="${sessionScope.type_id==1 }">selected="selected"</c:if> >军事</option>
+							<option value="2" <c:if test="${sessionScope.type_id==2 }">selected="selected"</c:if> >娱乐</option>
+							<option value="3" <c:if test="${sessionScope.type_id==3 }">selected="selected"</c:if> >经济</option>
+							<option value="4" <c:if test="${sessionScope.type_id==4 }">selected="selected"</c:if> >汽车</option>
+							
+					</select>
+			<input type="submit" value="查询"/>
+		</form>
 	</div>
 	
 	<div>
@@ -151,7 +174,7 @@ for(i=0;i<cs.length;i++){
 			              <input type="checkbox" name="checkbox2" value="checkbox" />
 			            </div></td>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${news.newsid}</span></div></td>
-			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="<%=basePath %>IndexToBrowseServlet?name=${news.newsid }&pre=1" target="_blank">${news.newstitle }</a></span></div></td>
+			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="<%=basePath %>news_prev.jsp?nid=${news.newsid }" target="_blank">${news.newstitle }</a></span></div></td>
 			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${news.typename }</span></div></td>
 			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${news.userid }(${news.username })</span></div></td>
 			            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${news.newsdate }</span></div></td>
