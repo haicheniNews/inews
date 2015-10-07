@@ -11,3 +11,17 @@ insert  into `news_type`(`typeid`,`typename`) values (0,'热点'),(1,'军事'),(
 
 
 
+UPDATE news SET ispublish=0 WHERE newsid%2=0;
+
+SELECT VARIABLE_VALUE FROM information_schema.GLOBAL_VARIABLES WHERE VARIABLE_NAME='MAX_CONNECTIONS';
+
+SELECT a.newsid,a.newstitle,a.typeid,b.typename,b.typefname FROM news a LEFT JOIN news_type b ON a.typeid=b.typeid  WHERE a.typeid=1 AND a.ispublish=1 LIMIT 0,5;
+
+TRUNCATE db_news.comment;
+
+TRUNCATE db_news.news;
+
+DELETE FROM id_card WHERE userid!='admin';
+
+DELETE FROM user_info WHERE userid!='admin';
+
