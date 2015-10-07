@@ -79,9 +79,9 @@ public class LoginServlet extends HttpServlet {
 		}
 		if(list.size()>0){
 			request.getSession().setAttribute("userId",id);
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			//request.getRequestDispatcher("index.jsp").forward(request, response);
 			
-//			response.sendRedirect("index.jsp");
+			response.sendRedirect("index.jsp");
 		}else{
 				response.sendRedirect("login.jsp");
 			}

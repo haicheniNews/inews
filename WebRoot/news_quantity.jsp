@@ -114,10 +114,15 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 	<div style="margin-bottom: 20px;width:1000px;float:left;">
   		<%	for(int j=0;j < data.size();j++){
   			Map<String ,Object>  map=data.get(j);
+  			String img_path=path+"/"+"upload/images"+"/"+map.get("newsimage");
+  			if(img_path.contains("null")){
+  				img_path="images/inews.jpg";
+  				System.out.println(img_path);
+  			}
 		%>			
 			<form action="QuanToBrowServlet" method="post">
 				<div style="width: 200px;height: 280px;border: 1px solid red;float:left;margin-top: 20px;margin-left:30px;">
-				<input type="image"   width="200px" height="200px"  style="float:left;" src="<%=path+"/"+"upload/images"+"/"+map.get("newsimage") %>"/>	 
+				<input type="image"   width="200px" height="200px"  style="float:left;" src="<%=img_path %>"/>	 
 				<span style="width: 200px;height: 128px;float:left;\">
 				<font size="2px" color="red">主题 <%=map.get("newstitle") %></font> <br/>
 				<font size="2px" color="#F75000">时间<%=map.get("newsdate") %></font> <br/>

@@ -16,6 +16,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<img src="static/images/logo.jpg" alt="logo">
 		</div>
 		<div class="button">
+		<c:if test="${sessionScope.is_no==1}">
+			<a href="admin/index.html">后台</a>
+		</c:if>
+		
 		<%String viewer; 
 					if(request.getSession().getAttribute("userId")==null){viewer="login.jsp";}   //发布新闻的标题
 					else{viewer="press_release.jsp";} %><a href="<%=viewer %>">发布新闻</a>
@@ -51,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div class="content">
-		<a href="" class="item"></a>
+		<a class="item"><img src="images/tt.jpg" width="966px" height="200px"></a>
 		
 	</div>
 	
@@ -82,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<c:forEach items="${index_my_list}" var="ilist" begin="0" end="5">
 				<div class="news">
 					<c:forEach items="${ilist}" var="tmp1" begin="0" end="0">
-						<div class="title"><span>${tmp1.typename }</span><a href="">查看更多</a> </div>
+						<div class="title"><span>${tmp1.typename }</span><a href="IndexToQuantityServlet?name=${tmp1.typefname }">查看更多</a> </div>
 					</c:forEach>
 						<ul>
 							<c:forEach items="${ilist}" var="tmp">
@@ -97,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 			<c:forEach items="${index_my_list_right}" var="ilist2">
 				<div class="list">
-					<div class="title"><span>头条</span> <a href=""></a> </div>
+					<div class="title"><span><font color="white">头条</font></span> <a href=""></a> </div>
 					
 					<ul>
 						<c:forEach items="${ilist2}" var="tmp2">
@@ -109,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</c:forEach>
 			
 			<div class="list">
-				<div class="title"><span>广告预留</span> <a href=""></a> </div>
+				<div class="title"><span><font color="white">广告预留</font></span> <a href=""></a> </div>
 				<ul>
 					<li><a href="#">广告预留招商</a></li>
 					<li><a href="#">广告预留招商</a></li>

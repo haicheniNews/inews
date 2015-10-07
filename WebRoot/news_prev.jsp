@@ -179,25 +179,6 @@ if(userid == null){
 		
 		</div>
 		<div class="clear"></div>
-	
-	<div class="footer" style="margin-top: 50px;" >
-				 <div id="site_nav">
-				    <ul>
-				      <li><a href="/index/service">广告服务</a></li>
-				      <li><a href="/index/contactus">联系我们</a></li>
-				      <li ><a href="/index/friend_links">友情链接:</a></li>
-				      <li ><a href="#">百度</a></li>
-				  	  <li ><a href="#">搜狐</a></li>
-					  <li ><a href="#">谷歌</a></li>
-					  <li class="last" ><a href="#">新浪</a></li>
-				    </ul>
-				  </div>
-				 
-				  <div id="copyright">
-				    &copy; 2003-2015 iNews.com.    [ <a href="http://www.miibeian.gov.cn">京ICP证110151号</a>  京公网安备110105010620 ]<br/>
-				    iNews(北京)投资有限公司  版权所有<br />
-				  </div>
-	</div>
 
 
 </body>

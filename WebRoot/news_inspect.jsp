@@ -105,11 +105,11 @@ for(i=0;i<cs.length;i++){
 		<div class="title fl">
 			<ul>
 				<li><a href="index.jsp">首页</a></li>
-				<li><a href="#">热点</a></li>
-				<li><a href="#">军事</a></li>
-				<li><a href="#">娱乐</a></li>
-				<li><a href="#">经济</a></li>
-				<li><a href="#">汽车</a></li>
+				<li><a href="IndexToQuantityServlet?name=hot">热点</a></li>
+				<li><a href="IndexToQuantityServlet?name=military">军事</a></li>
+				<li><a href="IndexToQuantityServlet?name=amusement">娱乐</a></li>
+				<li><a href="IndexToQuantityServlet?name=economic">经济</a></li>
+				<li><a href="IndexToQuantityServlet?name=car">汽车</a></li>
 			</ul>
 		</div>	
 

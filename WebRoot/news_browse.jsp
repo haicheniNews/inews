@@ -225,13 +225,13 @@
 					}
 				%>
 			</div>
-			<div style="text-align: left;">
+			<div style="text-align: left;margin-top: 50px;">
 				<p>
 					&nbsp;&nbsp;&nbsp;<%=news.getNewsBody()%>
 				</p>
 			</div>
 
-			<div style="text-align: left; margin-top: 50px;">
+			<div style="text-align: left; margin-top: 150px;">
 				已有评论:
 			</div>
 

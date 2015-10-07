@@ -114,6 +114,9 @@ public class SubmitServlet extends HttpServlet {
                     //得到上传的文件名称，
                     String name = item.getFieldName();
                     String filename = item.getName();
+                    if(filename.length()<=0){
+                    	continue;
+                    }
                     filename =""+System.currentTimeMillis()+filename.substring(filename.lastIndexOf("."));
                     
                      if("file1".equals(name)){

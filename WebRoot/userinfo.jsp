@@ -82,5 +82,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  		    <input type="submit" style="width:234px;height:32px;margin-left: 3px;margin-top: 30px;background-color: #019858;border:0px;color: white;cursor:pointer;font-size: 20px;" value="更新" name="Submit1" class="anniu"> 
   			</form>
   			</div> 	
+  			<a href="index.jsp">返回首页</a>
   </body>
 </html>

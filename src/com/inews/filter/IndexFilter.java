@@ -3,6 +3,7 @@ package com.inews.filter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.Filter;
@@ -12,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.inews.utils.DbCRUD;
 import com.inews.utils.PropertiesUtils;
@@ -29,7 +31,7 @@ public class IndexFilter implements Filter {
 		DbCRUD dc=new DbCRUD();
 		//SELECT * FROM news a LEFT JOIN  news_type b ON a.typeid=b.typeid;
 		//String sql="select * from news where typeid=? and ispublish=1 ;";/ 
-		String sql="SELECT a.newsid,a.newstitle,a.typeid,b.typename FROM news a LEFT JOIN news_type b ON a.typeid=b.typeid  WHERE a.typeid=? AND a.ispublish=1 limit 0,5";
+		String sql="SELECT a.newsid,a.newstitle,a.typeid,b.typename,b.typefname FROM news a LEFT JOIN news_type b ON a.typeid=b.typeid  WHERE a.typeid=? AND a.ispublish=1 limit 0,5";
 //		String[] types={"hot","military","entertainment","economy","car"};
 		
 		ArrayList index_my_list=new ArrayList();
@@ -49,11 +51,27 @@ public class IndexFilter implements Filter {
 		String value=PropertiesUtils.getFilePath();
 		
 		HttpServletRequest request=(HttpServletRequest) arg0;
+		HttpServletResponse response=(HttpServletResponse) arg1;
 		request.getSession().setAttribute("index_my_list", index_my_list);
 		request.getSession().setAttribute("index_my_list_right", list);
 		request.getSession().setAttribute("img_path", value);
+		
+		
+		String userId=(String) request.getSession().getAttribute("userId");
+		DbCRUD dbCrud=new DbCRUD();
+		String sql3="select * from role_user where userid=?";
+		List<Map<String,Object>> list3=(List<Map<String, Object>>) dbCrud.query(sql3, userId);
+		if(list3.size()<=1){
+			//普通用户
+			request.getSession().setAttribute("is_no", "0");
+			//request.getRequestDispatcher("../index.jsp").forward(request, response);
+		}else{
+			//后台管理用户
+			//System.out.println("后台管理用户放行.");
+			request.getSession().setAttribute("is_no", "1");
+		}
 		arg2.doFilter(arg0, arg1);
-		System.out.println("ok"+" : "+index_my_list.size());
+		System.out.println("ok"+" : "+index_my_list.size()+" , is_no"+request.getSession().getAttribute("is_no"));
 	}
 
 	public void init(FilterConfig arg0) throws ServletException {

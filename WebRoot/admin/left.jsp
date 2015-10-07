@@ -9,6 +9,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <HEAD>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="css/demo.css" type="text/css">
+	<style type="text/css">
+		.back a{
+			height: 30px;
+  		width: auto;
+  		padding: 0 20px;
+  		background-color: red;
+  		text-decoration: none;
+  		line-height: 30px;
+  		font-family: "微软雅黑";
+  		border-radius: 3px;
+  		color: #fff;
+		}
+		.back a:HOVER {
+			background-color: yellow;
+		}
+	</style>
 	<link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css" type="text/css">
 	<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
 	<script type="text/javascript" src="js/jquery.ztree.core-3.5.js"></script>
@@ -81,6 +97,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<ul id="treeDemo" class="ztree"></ul>
 	</div>
 </div>
-
+<div class="back" style="margin-top: 200px; text-indent: 20px;"><a href="../index.jsp" target="_blank">新闻首页</a></div>
 </BODY>
 </HTML>
